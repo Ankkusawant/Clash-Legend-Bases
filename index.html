@@ -395,6 +395,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            cursor: zoom-in;
         }
         .base-card .card-img .no-img {
             color: var(--text-muted);
@@ -479,6 +480,37 @@
         }
         .modal-overlay.active {
             display: flex;
+        }
+        .image-lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 10001;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background: rgba(0, 0, 0, 0.88);
+            cursor: zoom-out;
+        }
+        .image-lightbox.active {
+            display: flex;
+        }
+        .image-lightbox img {
+            max-width: min(96vw, 1400px);
+            max-height: 92vh;
+            object-fit: contain;
+            border-radius: 12px;
+            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.8);
+        }
+        .image-lightbox-close {
+            position: absolute;
+            top: 18px;
+            right: 24px;
+            border: 0;
+            background: transparent;
+            color: #fff;
+            font-size: 32px;
+            cursor: pointer;
         }
         .modal {
             background: var(--bg-secondary);
@@ -772,7 +804,7 @@
             </div>
             <div class="hero-desc">
                 Explore the best TH18 base designs — anti-3-star, war-tested, and trophy-pushing layouts.
-                Add and manage your own approved layouts. If you wish to submit your base here come and send your base in clan: #2CY29YPC9
+                Add and manage your own approved layouts. Want to upload your base? Come to clan: #2CY29YPC9 & send your base - if we find good it will be added here.
             </div>
             <div class="hero-actions">
                 <button class="btn btn-primary" id="addBaseBtn">➕ Add Base</button>
@@ -844,6 +876,12 @@
         </div>
     </div>
 
+    <!-- ─── IMAGE LIGHTBOX ─── -->
+    <div class="image-lightbox" id="imageLightbox" role="dialog" aria-label="Enlarged base image" aria-modal="true">
+        <button class="image-lightbox-close" id="imageLightboxClose" aria-label="Close enlarged image">✕</button>
+        <img id="imageLightboxImg" alt="Enlarged TH18 base">
+    </div>
+
     <!-- ─── TOAST ─── -->
     <div class="toast" id="toast"></div>
 
@@ -879,7 +917,7 @@
         // ────────────────────────────────────────────────
 
         // 🔗 Deployed Apps Script web-app URL (do not put private keys here)
-        const API_URL = 'https://script.google.com/macros/s/AKfycbzNJklJgqW0CnHjOyrLcCw2A4HGSj48ytSJy-kw0Ng--35EkyO3SaVtjocpuMJy0YwX/exec';
+        const API_URL = 'https://script.google.com/macros/s/AKfycbz0iJj290WmWVhGPoggJ3tEDT4D6yIw3QBO3BxTG5E/dev';
 
         // ────────────────────────────────────────────────
         //  STATE
@@ -917,6 +955,9 @@
         const progressFill = document.getElementById('progressFill');
 
         const toast = document.getElementById('toast');
+        const imageLightbox = document.getElementById('imageLightbox');
+        const imageLightboxImg = document.getElementById('imageLightboxImg');
+        const imageLightboxClose = document.getElementById('imageLightboxClose');
         const welcomeOverlay = document.getElementById('welcomeOverlay');
         let toastTimer = null;
 
@@ -989,7 +1030,7 @@
             grid.innerHTML = sorted.map(b => `
                 <div class="base-card" data-id="${b.id}">
                     <div class="card-img">
-                        ${b.image ? `                        <img src="${escHtml(b.image)}" alt="${escHtml(b.name || 'TH18 base')}" loading="lazy">` : `<span class="no-img">🖼️ no image</span>`}
+                        ${b.image ? `                        <img class="zoomable-image" src="${escHtml(b.image)}" alt="${escHtml(b.name || 'TH18 base')}" loading="lazy">` : `<span class="no-img">🖼️ no image</span>`}
                     </div>
                     <div class="card-body">
                         <div class="card-title">${escHtml(b.name || 'Unnamed Base')}</div>
@@ -999,31 +1040,39 @@
                         </div>
                         <p style="font-size:12px;color:var(--text-muted);margin-top:6px;">${b.desc ? escHtml(b.desc).slice(0, 80) : 'Approved TH18 layout'}</p>
                         <div class="card-actions">
-                            <button class="btn-sm btn-sm-copy" data-copy="${b.id}">📋 Copy In-Game Link</button>
+                            ${b.link ? `<a class="btn-sm btn-sm-copy" href="${escHtml(b.link)}" target="_blank" rel="noopener noreferrer">↗ Open Link</a>` : ''}
                         </div>
                     </div>
                 </div>
             `).join('');
 
-            grid.querySelectorAll('[data-copy]').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const id = Number(btn.dataset.copy);
-                    const base = bases.find(b => b.id === id);
-                    if (base && base.link) {
-                        if (navigator.clipboard && navigator.clipboard.writeText) {
-                            navigator.clipboard.writeText(base.link).then(() => {
-                                showToast('✅ In-game link copied!');
-                            }).catch(() => copyWithFallback(base.link));
-                        } else {
-                            copyWithFallback(base.link);
-                        }
-                    } else {
-                        showToast('⚠️ No in-game link available', true);
-                    }
-                });
+            grid.querySelectorAll('.zoomable-image').forEach(image => {
+                image.addEventListener('click', () => openImageLightbox(image.src, image.alt));
             });
         }
+
+        function openImageLightbox(src, alt) {
+            imageLightboxImg.src = src;
+            imageLightboxImg.alt = alt;
+            imageLightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeImageLightbox() {
+            imageLightbox.classList.remove('active');
+            imageLightboxImg.src = '';
+            document.body.style.overflow = '';
+        }
+
+        imageLightbox.addEventListener('click', event => {
+            if (event.target === imageLightbox) closeImageLightbox();
+        });
+        imageLightboxClose.addEventListener('click', closeImageLightbox);
+        document.addEventListener('keydown', event => {
+            if (event.key === 'Escape' && imageLightbox.classList.contains('active')) {
+                closeImageLightbox();
+            }
+        });
 
         function renderHero() {
             const sorted = [...bases].sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
@@ -1059,16 +1108,6 @@
                 const d = new Date(dateStr);
                 return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
             } catch (_) { return '—'; }
-        }
-
-        function copyWithFallback(value) {
-            const ta = document.createElement('textarea');
-            ta.value = value;
-            document.body.appendChild(ta);
-            ta.select();
-            document.execCommand('copy');
-            ta.remove();
-            showToast('✅ In-game link copied!');
         }
 
         function fileToDataUrl(file) {
