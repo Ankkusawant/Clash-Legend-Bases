@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0, minimum-scale=1.0, user-scalable=yes">
+    <title>TH18 Base Layouts — War, CWL, Farming &amp; Trophy Bases</title>
+    <meta name="description" content="Discover and share tested Clash of Clans Town Hall 18 base layouts for War, CWL, Legend League, Farming, Hybrid, and Trophy play.">
+    <meta name="theme-color" content="#1a0e08">
+    <link rel="canonical" href="https://clashofclans-layouts.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="TH18 Base Layouts — Clash of Clans">
+    <meta property="og:description" content="Browse approved Town Hall 18 base layouts and copy the in-game link.">
+    <meta property="og:url" content="https://clashofclans-layouts.com/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Google Identity Services Library -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+    <style>
+        /* ── RESET & BASE ── */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: #1a0e08;
+            color: #f0e6d8;
+            padding-bottom: 120px;
+            min-height: 100vh;
+        }
+        body.welcome-open {
+            overflow: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ── DARK ORANGE THEME VARIABLES ── */
+        :root {
+            --bg-primary: #1a0e08;
+            --bg-secondary: #26150e;
+            --bg-card: #2d1a11;
+            --bg-card-hover: #3d2419;
+            --orange-dark: #b8531a;
+            --orange-mid: #e67a2e;
+            --orange-bright: #f59a3a;
+            --orange-glow: #f5a03a;
+            --text-primary: #f0e6d8;
+            --text-secondary: #d4c4b0;
+            --text-muted: #a68e7a;
+            --border-glow: rgba(230, 122, 46, 0.35);
+            --shadow-glow: 0 0 30px rgba(230, 122, 46, 0.15);
+        }
+
+        /* ── SCROLLBAR ── */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--orange-mid);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--orange-bright);
+        }
+
+        /* ── WELCOME ANIMATION ── */
+        .welcome-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            display: grid;
+            place-items: center;
+            background: #120905;
+            animation: welcome-fade-out 0.8s ease 3.2s forwards;
+        }
+        .welcome-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 22px;
+            padding: 24px;
+            text-align: center;
+            animation: welcome-rise 0.9s ease both;
+        }
+        .welcome-content img {
+            width: min(72vw, 360px);
+            max-height: 280px;
+            object-fit: contain;
+            border-radius: 24px;
+            box-shadow: 0 0 55px rgba(245, 154, 58, 0.35);
+        }
+        .welcome-content h1 {
+            color: var(--orange-bright);
+            font-size: clamp(28px, 6vw, 52px);
+            font-weight: 800;
+            letter-spacing: -1px;
+            text-shadow: 0 0 24px rgba(245, 154, 58, 0.35);
+        }
+        .welcome-skip {
+            color: var(--text-muted);
+            font: 600 12px 'Open Sans', sans-serif;
+            opacity: 0;
+            animation: welcome-hint 0.5s ease 1.5s forwards;
+        }
+        @keyframes welcome-rise {
+            from { opacity: 0; transform: translateY(24px) scale(0.96); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        @keyframes welcome-hint {
+            to { opacity: 1; }
+        }
+        @keyframes welcome-fade-out {
+            to { opacity: 0; visibility: hidden; pointer-events: none; }
+        }
+
+        /* ── HEADER ── */
+        header {
+            background: var(--bg-secondary);
+            border-bottom: 2px solid var(--orange-dark);
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
+        }
+
+        .logo-wrap {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: radial-gradient(circle at 30% 30%, var(--orange-bright), var(--orange-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 20px;
+            color: #1a0e08;
+            box-shadow: 0 0 20px var(--border-glow);
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, var(--orange-bright), var(--orange-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .logo-text span {
+            font-weight: 400;
+            -webkit-text-fill-color: var(--text-secondary);
+            background: none;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .header-badge {
+            background: var(--orange-dark);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 14px;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            box-shadow: 0 0 20px rgba(230, 122, 46, 0.3);
+            white-space: nowrap;
+        }
+
+        /* ── GOOGLE LOGIN / PROFILE ── */
+        #googleLoginBtn {
+            min-width: 150px;
+        }
+        #userProfile {
+            display: none;
+            align-items: center;
+            gap: 12px;
+            background: var(--bg-card);
+            padding: 4px 14px 4px 6px;
+            border-radius: 40px;
+            border: 1px solid var(--border-glow);
+            box-shadow: var(--shadow-glow);
+        }
+        #userProfile img {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 2px solid var(--orange-mid);
+            object-fit: cover;
+        }
+        #userProfile .user-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            max-width: 100px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        #userProfile .logout-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 13px;
+            padding: 4px 8px;
+            border-radius: 20px;
+            transition: 0.2s;
+            font-family: 'Open Sans', sans-serif;
+        }
+        #userProfile .logout-btn:hover {
+            color: var(--orange-bright);
+            background: rgba(230, 122, 46, 0.1);
+        }
+
+        /* ── MAIN CONTAINER ── */
+        .main {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 24px 20px 40px;
+        }
+
+        /* ── HERO SECTION (TH18) ── */
+        .hero-th18 {
+            background: linear-gradient(145deg, var(--bg-secondary), var(--bg-card));
+            border-radius: 28px;
+            padding: 40px 36px 36px;
+            margin-bottom: 48px;
+            border: 1px solid var(--border-glow);
+            box-shadow: var(--shadow-glow), inset 0 1px 0 rgba(245, 154, 58, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-th18::before {
+            content: '';
+            position: absolute;
+            top: -60%;
+            right: -20%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(230, 122, 46, 0.08), transparent 70%);
+            pointer-events: none;
+        }
+        .hero-th18::after {
+            content: '★ NEW';
+            position: absolute;
+            top: 16px;
+            right: 24px;
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--orange-bright);
+            background: rgba(230, 122, 46, 0.15);
+            padding: 4px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--border-glow);
+            letter-spacing: 1px;
+        }
+
+        .hero-header {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+        .hero-thumb {
+            width: 120px;
+            height: 120px;
+            border-radius: 20px;
+            background: var(--bg-primary);
+            border: 2px solid var(--orange-dark);
+            overflow: hidden;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .hero-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .hero-thumb .placeholder-icon {
+            font-size: 48px;
+            opacity: 0.3;
+            color: var(--orange-mid);
+        }
+
+        .hero-title-group {
+            flex: 1;
+        }
+        .hero-title-group h1 {
+            font-size: 36px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff 40%, var(--orange-bright));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+        .hero-title-group .sub {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .hero-title-group .sub .tag {
+            background: var(--orange-dark);
+            padding: 2px 14px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #fff;
+            -webkit-text-fill-color: #fff;
+        }
+        .hero-desc {
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.6;
+            max-width: 700px;
+            margin-top: 4px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+            align-items: center;
+        }
+
+        /* ── BUTTONS ── */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 30px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 15px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-family: 'Open Sans', sans-serif;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--orange-bright), var(--orange-dark));
+            color: #1a0e08;
+            box-shadow: 0 4px 20px rgba(230, 122, 46, 0.35);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 35px rgba(230, 122, 46, 0.5);
+        }
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border-glow);
+        }
+        .btn-secondary:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--orange-mid);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--text-muted);
+        }
+        .btn-outline:hover {
+            border-color: var(--orange-bright);
+            color: var(--orange-bright);
+        }
+
+        /* ── TH18 BASE GRID ── */
+        .base-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 18px;
+            margin-top: 18px;
+        }
+        .base-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(230, 122, 46, 0.12);
+            transition: all 0.25s ease;
+            cursor: default;
+        }
+        .base-card:hover {
+            border-color: var(--border-glow);
+            box-shadow: var(--shadow-glow);
+            transform: translateY(-3px);
+        }
+        .base-card .card-img {
+            width: 100%;
+            aspect-ratio: 16/10;
+            background: var(--bg-primary);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .base-card .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .base-card .card-img .no-img {
+            color: var(--text-muted);
+            font-size: 13px;
+            opacity: 0.5;
+        }
+        .base-card .card-body {
+            padding: 14px 16px 16px;
+        }
+        .base-card .card-title {
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .base-card .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+        .base-card .card-meta .date {
+            font-size: 11px;
+        }
+        .base-card .card-actions {
+            display: flex;
+            gap: 6px;
+            margin-top: 10px;
+        }
+        .base-card .card-actions .btn-sm {
+            padding: 4px 14px;
+            font-size: 12px;
+            border-radius: 20px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Open Sans', sans-serif;
+        }
+        .btn-sm-copy {
+            background: var(--orange-dark);
+            color: #fff;
+        }
+        .btn-sm-copy:hover {
+            background: var(--orange-bright);
+        }
+        .btn-sm-del {
+            background: rgba(180, 60, 60, 0.3);
+            color: #d47a7a;
+        }
+        .btn-sm-del:hover {
+            background: rgba(180, 60, 60, 0.5);
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 50px 20px;
+            color: var(--text-muted);
+        }
+        .empty-state .big-icon {
+            font-size: 64px;
+            opacity: 0.25;
+            margin-bottom: 12px;
+        }
+
+        /* ── MODAL ── */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(6px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            padding: 20px;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        .modal {
+            background: var(--bg-secondary);
+            border-radius: 28px;
+            max-width: 540px;
+            width: 100%;
+            padding: 36px 32px 32px;
+            border: 1px solid var(--border-glow);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 28px;
+            cursor: pointer;
+            transition: 0.2s;
+            line-height: 1;
+        }
+        .modal-close:hover {
+            color: #fff;
+            transform: rotate(90deg);
+        }
+        .modal h2 {
+            font-size: 26px;
+            font-weight: 800;
+            margin-bottom: 6px;
+            background: linear-gradient(135deg, var(--orange-bright), var(--orange-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .modal p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .modal label {
+            display: block;
+            font-weight: 600;
+            font-size: 14px;
+            margin: 14px 0 4px;
+            color: var(--text-secondary);
+        }
+        .modal input,
+        .modal textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(230, 122, 46, 0.2);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+        .modal input:focus,
+        .modal textarea:focus {
+            outline: none;
+            border-color: var(--orange-mid);
+            box-shadow: 0 0 0 3px rgba(230, 122, 46, 0.15);
+        }
+        .modal textarea {
+            resize: vertical;
+            min-height: 70px;
+        }
+        .modal select {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(230, 122, 46, 0.2);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px;
+        }
+        .modal .file-zone {
+            border: 2px dashed rgba(230, 122, 46, 0.25);
+            border-radius: 16px;
+            padding: 30px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.25s;
+            margin-top: 6px;
+            position: relative;
+        }
+        .modal .file-zone:hover {
+            border-color: var(--orange-mid);
+            background: rgba(230, 122, 46, 0.04);
+        }
+        .modal .file-zone .icon {
+            font-size: 40px;
+            opacity: 0.3;
+            display: block;
+        }
+        .modal .file-zone .hint {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+        .modal .file-zone input[type="file"] {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+        .modal .preview-wrap {
+            margin-top: 12px;
+            display: none;
+        }
+        .modal .preview-wrap img {
+            max-width: 100%;
+            max-height: 180px;
+            border-radius: 12px;
+            border: 1px solid var(--border-glow);
+        }
+        .modal .preview-wrap.active {
+            display: block;
+        }
+        .modal .btn-row {
+            display: flex;
+            gap: 12px;
+            margin-top: 22px;
+            flex-wrap: wrap;
+        }
+        .modal .btn-row .btn {
+            flex: 1;
+            justify-content: center;
+            min-width: 120px;
+        }
+        .modal .progress-bar {
+            height: 4px;
+            background: var(--bg-primary);
+            border-radius: 4px;
+            margin-top: 16px;
+            overflow: hidden;
+            display: none;
+        }
+        .modal .progress-bar.active {
+            display: block;
+        }
+        .modal .progress-bar .fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--orange-dark), var(--orange-bright));
+            border-radius: 4px;
+            transition: width 0.4s ease;
+        }
+
+        /* ── TOAST ── */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-glow);
+            padding: 14px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-primary);
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.7);
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            transform: translateX(-50%) translateY(20px);
+            pointer-events: none;
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-glow);
+            padding: 32px 24px 24px;
+            text-align: center;
+            margin-top: 40px;
+        }
+        footer .supercell {
+            font-size: 13px;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto 12px;
+            line-height: 1.5;
+        }
+        footer .supercell a {
+            color: var(--orange-bright);
+            text-decoration: underline;
+        }
+        footer .copy {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+        footer .copy a {
+            color: var(--text-secondary);
+            margin: 0 6px;
+        }
+        footer .copy a:hover {
+            color: var(--orange-bright);
+        }
+        footer .langs {
+            margin-top: 16px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 4px 12px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+        footer .langs a {
+            color: var(--text-secondary);
+            transition: 0.2s;
+        }
+        footer .langs a:hover {
+            color: var(--orange-bright);
+        }
+        footer .langs .sep {
+            opacity: 0.3;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 768px) {
+            header { flex-direction: column; align-items: stretch; gap: 8px; }
+            .header-actions { justify-content: space-between; flex-wrap: wrap; }
+            #googleLoginBtn { min-width: 120px; flex: 1; }
+            .hero-th18 { padding: 28px 20px 24px; }
+            .hero-th18::after { top: 12px; right: 16px; font-size: 11px; padding: 3px 12px; }
+            .hero-header { flex-direction: column; align-items: flex-start; }
+            .hero-thumb { width: 90px; height: 90px; }
+            .hero-title-group h1 { font-size: 26px; }
+            .hero-actions { flex-direction: column; align-items: stretch; }
+            .hero-actions .btn { justify-content: center; }
+            .modal { padding: 28px 18px 24px; }
+            .base-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+            .logo-text { font-size: 20px; }
+        }
+        @media (max-width: 480px) {
+            .base-grid { grid-template-columns: 1fr 1fr; }
+            .hero-title-group h1 { font-size: 22px; }
+        }
+    </style>
+</head>
+<body class="welcome-open">
+
+    <!-- ─── WELCOME ANIMATION ─── -->
+    <div class="welcome-overlay" id="welcomeOverlay" role="status" aria-label="Welcome">
+        <div class="welcome-content">
+            <img src="welcomeImage.png" alt="Welcome to ClashLayouts" onerror="this.style.display='none'">
+            <h1>We make you legend.</h1>
+            <span class="welcome-skip">Preparing your TH18 base vault...</span>
+        </div>
+    </div>
+
+    <!-- ─── HEADER ─── -->
+    <header>
+        <div class="logo-wrap">
+            <div class="logo-icon">⚔</div>
+            <div class="logo-text">Clash<span>Layouts</span></div>
+        </div>
+        <div class="header-actions">
+            <!-- Google Login Button Container -->
+            <div id="googleLoginBtn"></div>
+            <!-- User Profile (hidden by default) -->
+            <div id="userProfile">
+                <img id="userPic" src="" alt="profile">
+                <span class="user-name" id="userName">User</span>
+                <button class="logout-btn" id="logoutBtn">✕ Logout</button>
+            </div>
+            <span class="header-badge">🔥 TH18 Vault</span>
+        </div>
+    </header>
+
+    <!-- ─── MAIN ─── -->
+    <div class="main">
+
+        <!-- ═══ HERO: TH18 ═══ -->
+        <section class="hero-th18" id="heroSection">
+            <div class="hero-header">
+                <div class="hero-thumb" id="heroThumb">
+                    <img id="heroThumbImg" src="" alt="TH18 Base" style="display:none;">
+                    <span class="placeholder-icon" id="heroPlaceholder">🏰</span>
+                </div>
+                <div class="hero-title-group">
+                    <h1>🏆 TH18 Bases <span style="font-weight:400;background:none;-webkit-text-fill-color:var(--text-secondary);">— Community Vault</span></h1>
+                    <div class="sub">
+                        <span>⚡ The latest &amp; most effective Town Hall 18 layouts</span>
+                        <span class="tag">2026</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-desc">
+                Explore the best TH18 base designs — anti-3-star, war-tested, and trophy-pushing layouts.
+                <strong>Login with Google</strong> to share your own creation.
+            </div>
+            <div class="hero-actions">
+                <button class="btn btn-primary" id="addBaseBtn" disabled title="Please login to add base">➕ Add Base</button>
+                <button class="btn btn-secondary" id="refreshHeroBtn">⟳ Refresh</button>
+                <span style="font-size:13px;color:var(--text-muted);margin-left:4px;" id="baseCountLabel">0 bases</span>
+            </div>
+        </section>
+
+        <!-- ═══ TH18 BASE GRID ═══ -->
+        <div id="th18Grid" class="base-grid">
+            <div class="empty-state">
+                <div class="big-icon">📐</div>
+                <p style="font-size:16px;font-weight:600;color:var(--text-secondary);">No TH18 bases yet</p>
+                <p style="font-size:14px;color:var(--text-muted);">Login with Google and click “Add Base” to upload your first layout!</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ─── MODAL: ADD BASE ─── -->
+    <div class="modal-overlay" id="addModal">
+        <div class="modal">
+            <button class="modal-close" id="closeModalBtn">✕</button>
+            <h2>📤 Add New TH18 Base</h2>
+            <p>Submit an image and an in-game link. Your layout will be reviewed before it appears publicly.</p>
+
+            <label for="baseName">Base Name</label>
+            <input type="text" id="baseName" placeholder="e.g. Anti-3-Star TH18 #1" value="TH18 War Base">
+
+            <label for="baseDesc">Short Description (optional)</label>
+            <textarea id="baseDesc" placeholder="e.g. Great for Clan War League"></textarea>
+
+            <label for="baseCategory">Category</label>
+            <select id="baseCategory">
+                <option value="War">War</option>
+                <option value="CWL">CWL</option>
+                <option value="Legend League">Legend League</option>
+                <option value="Farming">Farming</option>
+                <option value="Hybrid">Hybrid</option>
+                <option value="Trophy">Trophy</option>
+            </select>
+
+            <label for="baseLink">Clash of Clans in-game link</label>
+            <input type="url" id="baseLink" placeholder="https://link.clashofclans.com/...">
+
+            <label>Base Image</label>
+            <div class="file-zone" id="fileZone">
+                <span class="icon">🖼️</span>
+                <div class="hint">Click or drag image here</div>
+                <input type="file" id="fileInput" accept="image/*">
+            </div>
+
+            <div class="preview-wrap" id="previewWrap">
+                <img id="previewImg" alt="preview">
+            </div>
+
+            <div class="progress-bar" id="progressBar">
+                <div class="fill" id="progressFill"></div>
+            </div>
+
+            <div class="btn-row">
+                <button class="btn btn-primary" id="submitBaseBtn" style="flex:2;">🚀 Upload &amp; Add</button>
+                <button class="btn btn-outline" id="cancelModalBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ─── TOAST ─── -->
+    <div class="toast" id="toast"></div>
+
+    <!-- ─── FOOTER ─── -->
+    <footer>
+        <div class="supercell">
+            clashofclans-layouts.com is unofficial and is not endorsed by Supercell.
+            For more information see <a href="https://supercell.com/en/fan-content-policy/en/" target="_blank" rel="nofollow noopener">Supercell's Fan Content Policy</a>.
+        </div>
+        <div class="copy">
+            Clash Of Clans Layouts © 2026 |             <a href="mailto:contact@clashofclans-layouts.com">Contact</a> | <a href="#privacy">Privacy</a>
+        </div>
+        <div class="langs">
+            <span style="font-weight:700;">English</span>
+            <span class="sep">|</span> <span>Русский</span>
+            <span class="sep">|</span> <span>Deutsch</span>
+            <span class="sep">|</span> <span>Français</span>
+            <span class="sep">|</span> <span>Español</span>
+            <span class="sep">|</span> <span>Italiano</span>
+            <span class="sep">|</span> <span>Português</span>
+            <span class="sep">|</span> <span>Polski</span>
+            <span class="sep">|</span> <span>中文</span>
+            <span class="sep">|</span> <span>العربية</span>
+        </div>
+        <div id="privacy" style="max-width:700px;margin:18px auto 0;font-size:12px;color:var(--text-muted);line-height:1.5;">
+            We use Google Sign-In only to identify contributors and review submissions. Submitted images and layout details
+            are stored for moderation and publication; we do not sell personal information.
+        </div>
+    </footer>
+
+    <script>
+        // ────────────────────────────────────────────────
+        //  CONFIG (REQUIRED: Replace with your own keys)
+        // ────────────────────────────────────────────────
+
+        // 🔑 Google OAuth 2.0 Client ID (from Google Cloud Console)
+        const GOOGLE_CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com';
+        // 🔗 Deployed Google Apps Script web-app URL (do not put private keys here)
+        const API_URL = 'YOUR_APPS_SCRIPT_WEB_APP_URL';
+
+        // ────────────────────────────────────────────────
+        //  STATE
+        // ────────────────────────────────────────────────
+
+        let bases = [];
+        let isLoggedIn = false;
+        let currentUser = null;
+        let googleCredential = null;
+
+        // ────────────────────────────────────────────────
+        //  DOM REFS
+        // ────────────────────────────────────────────────
+
+        const grid = document.getElementById('th18Grid');
+        const heroThumbImg = document.getElementById('heroThumbImg');
+        const heroPlaceholder = document.getElementById('heroPlaceholder');
+        const baseCountLabel = document.getElementById('baseCountLabel');
+        const addBaseBtn = document.getElementById('addBaseBtn');
+
+        const modal = document.getElementById('addModal');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const cancelModalBtn = document.getElementById('cancelModalBtn');
+        const openAddBaseBtn = document.getElementById('addBaseBtn');
+        const submitBaseBtn = document.getElementById('submitBaseBtn');
+        const refreshHeroBtn = document.getElementById('refreshHeroBtn');
+
+        const baseName = document.getElementById('baseName');
+        const baseDesc = document.getElementById('baseDesc');
+        const baseCategory = document.getElementById('baseCategory');
+        const baseLink = document.getElementById('baseLink');
+        const fileInput = document.getElementById('fileInput');
+        const fileZone = document.getElementById('fileZone');
+        const previewWrap = document.getElementById('previewWrap');
+        const previewImg = document.getElementById('previewImg');
+        const progressBar = document.getElementById('progressBar');
+        const progressFill = document.getElementById('progressFill');
+
+        const toast = document.getElementById('toast');
+        const welcomeOverlay = document.getElementById('welcomeOverlay');
+        let toastTimer = null;
+
+        setTimeout(() => {
+            document.body.classList.remove('welcome-open');
+            welcomeOverlay.remove();
+        }, 4100);
+
+        // ────────────────────────────────────────────────
+        //  TOAST
+        // ────────────────────────────────────────────────
+
+        function showToast(msg, isError = false) {
+            if (toastTimer) clearTimeout(toastTimer);
+            toast.textContent = msg;
+            toast.style.borderColor = isError ? '#aa3434' : 'var(--border-glow)';
+            toast.classList.add('show');
+            toastTimer = setTimeout(() => toast.classList.remove('show'), 3200);
+        }
+
+        // ────────────────────────────────────────────────
+        //  GOOGLE LOGIN
+        // ────────────────────────────────────────────────
+
+        function initGoogleSignIn() {
+            if (typeof google === 'undefined' || !google.accounts) {
+                // Fallback if library not loaded
+                setTimeout(initGoogleSignIn, 500);
+                return;
+            }
+            google.accounts.id.initialize({
+                client_id: GOOGLE_CLIENT_ID,
+                callback: handleCredentialResponse,
+                cancel_on_tap_outside: false
+            });
+            google.accounts.id.renderButton(
+                document.getElementById('googleLoginBtn'), {
+                    theme: 'outline',
+                    size: 'large',
+                    width: '200',
+                    text: 'continue_with',
+                    shape: 'pill',
+                    logo_alignment: 'left'
+                }
+            );
+            // Optional: one-tap sign-up
+            // google.accounts.id.prompt();
+        }
+
+        function handleCredentialResponse(response) {
+            try {
+                const payload = parseJwt(response.credential);
+                googleCredential = response.credential;
+                currentUser = {
+                    name: payload.name,
+                    email: payload.email,
+                    picture: payload.picture,
+                    sub: payload.sub
+                };
+                isLoggedIn = true;
+                updateUIForLoggedIn();
+                showToast(`✅ Welcome, ${currentUser.name}!`);
+                render(); // Refresh to enable buttons
+            } catch (e) {
+                showToast('⚠️ Login failed, please try again.', true);
+                console.error(e);
+            }
+        }
+
+        function parseJwt(token) {
+            const base64Url = token.split('.')[1];
+            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+            return JSON.parse(jsonPayload);
+        }
+
+        function logout() {
+            isLoggedIn = false;
+            currentUser = null;
+            googleCredential = null;
+            updateUIForLoggedOut();
+            showToast('👋 Logged out.');
+            // Optional: disable auto-select
+            if (typeof google !== 'undefined' && google.accounts) {
+                google.accounts.id.disableAutoSelect();
+            }
+            render();
+        }
+
+        function updateUIForLoggedIn() {
+            document.getElementById('userProfile').style.display = 'flex';
+            document.getElementById('userPic').src = currentUser.picture;
+            document.getElementById('userName').textContent = currentUser.name;
+            document.getElementById('googleLoginBtn').style.display = 'none';
+            addBaseBtn.disabled = false;
+            addBaseBtn.title = 'Add Base';
+            addBaseBtn.style.opacity = 1;
+            addBaseBtn.style.cursor = 'pointer';
+        }
+
+        function updateUIForLoggedOut() {
+            document.getElementById('userProfile').style.display = 'none';
+            document.getElementById('googleLoginBtn').style.display = 'block';
+            addBaseBtn.disabled = true;
+            addBaseBtn.title = 'Please login with Google to add a base';
+            addBaseBtn.style.opacity = 0.5;
+            addBaseBtn.style.cursor = 'not-allowed';
+        }
+
+        // ────────────────────────────────────────────────
+        //  STORAGE
+        // ────────────────────────────────────────────────
+
+        async function loadBases() {
+            if (API_URL === 'YOUR_APPS_SCRIPT_WEB_APP_URL') {
+                bases = [];
+                render();
+                showToast('⚠️ Configure the Apps Script API URL to load bases.', true);
+                return;
+            }
+            try {
+                const response = await fetch(`${API_URL}?action=list`, { headers: { Accept: 'application/json' } });
+                if (!response.ok) throw new Error(`API returned ${response.status}`);
+                const result = await response.json();
+                if (!result.success || !Array.isArray(result.bases)) throw new Error('Invalid API response');
+                bases = result.bases;
+                render();
+            } catch (error) {
+                bases = [];
+                render();
+                showToast('⚠️ Could not load approved bases. Please try again.', true);
+                console.error(error);
+            }
+        }
+
+        // ────────────────────────────────────────────────
+        //  RENDER
+        // ────────────────────────────────────────────────
+
+        function render() {
+            renderGrid();
+            renderHero();
+        }
+
+        function renderGrid() {
+            if (!bases.length) {
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <div class="big-icon">📐</div>
+                        <p style="font-size:16px;font-weight:600;color:var(--text-secondary);">Vault is empty</p>
+                        <p style="font-size:14px;color:var(--text-muted);">Login with Google and click “Add Base” to upload your first layout!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const sorted = [...bases].sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
+
+            grid.innerHTML = sorted.map(b => `
+                <div class="base-card" data-id="${b.id}">
+                    <div class="card-img">
+                        ${b.image ? `                        <img src="${escHtml(b.image)}" alt="${escHtml(b.name || 'TH18 base')}" loading="lazy">` : `<span class="no-img">🖼️ no image</span>`}
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">${escHtml(b.name || 'Unnamed Base')}</div>
+                        <div class="card-meta">
+                            <span>${escHtml(b.category || 'TH18')}</span>
+                            <span class="date">${formatDate(b.date)}</span>
+                        </div>
+                        <p style="font-size:12px;color:var(--text-muted);margin-top:6px;">${b.desc ? escHtml(b.desc).slice(0, 80) : 'Approved TH18 layout'}</p>
+                        <div class="card-actions">
+                            <button class="btn-sm btn-sm-copy" data-copy="${b.id}">📋 Copy In-Game Link</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            grid.querySelectorAll('[data-copy]').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const id = Number(btn.dataset.copy);
+                    const base = bases.find(b => b.id === id);
+                    if (base && base.link) {
+                        if (navigator.clipboard && navigator.clipboard.writeText) {
+                            navigator.clipboard.writeText(base.link).then(() => {
+                                showToast('✅ In-game link copied!');
+                            }).catch(() => copyWithFallback(base.link));
+                        } else {
+                            copyWithFallback(base.link);
+                        }
+                    } else {
+                        showToast('⚠️ No in-game link available', true);
+                    }
+                });
+            });
+        }
+
+        function renderHero() {
+            const sorted = [...bases].sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
+            const latest = sorted[0] || null;
+
+            if (latest && latest.image) {
+                heroThumbImg.src = latest.image;
+                heroThumbImg.style.display = 'block';
+                heroPlaceholder.style.display = 'none';
+            } else {
+                heroThumbImg.style.display = 'none';
+                heroPlaceholder.style.display = 'block';
+            }
+
+            const count = bases.length;
+            baseCountLabel.textContent = `${count} base${count !== 1 ? 's' : ''}`;
+        }
+
+        // ────────────────────────────────────────────────
+        //  HELPERS
+        // ────────────────────────────────────────────────
+
+        function escHtml(str) {
+            if (!str) return '';
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        function formatDate(dateStr) {
+            if (!dateStr) return '—';
+            try {
+                const d = new Date(dateStr);
+                return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+            } catch (_) { return '—'; }
+        }
+
+        function copyWithFallback(value) {
+            const ta = document.createElement('textarea');
+            ta.value = value;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            ta.remove();
+            showToast('✅ In-game link copied!');
+        }
+
+        function fileToDataUrl(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = () => reject(new Error('Could not read image'));
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // ────────────────────────────────────────────────
+        //  MODAL LOGIC
+        // ────────────────────────────────────────────────
+
+        let selectedFile = null;
+
+        function openModal() {
+            if (!isLoggedIn) {
+                showToast('🔒 Please login with Google to add a base.', true);
+                return;
+            }
+            modal.classList.add('active');
+            baseName.value = 'TH18 War Base';
+            baseDesc.value = '';
+            baseCategory.value = 'War';
+            baseLink.value = '';
+            selectedFile = null;
+            previewWrap.classList.remove('active');
+            previewImg.src = '';
+            fileInput.value = '';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+            progressBar.classList.remove('active');
+            progressFill.style.width = '0%';
+        }
+
+        addBaseBtn.addEventListener('click', openModal);
+        closeModalBtn.addEventListener('click', closeModal);
+        cancelModalBtn.addEventListener('click', closeModal);
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+
+        // File selection
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                selectedFile = file;
+                const reader = new FileReader();
+                reader.onload = (ev) => {
+                    previewImg.src = ev.target.result;
+                    previewWrap.classList.add('active');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        fileZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            fileZone.style.borderColor = 'var(--orange-bright)';
+        });
+        fileZone.addEventListener('dragleave', () => {
+            fileZone.style.borderColor = 'rgba(230,122,46,0.25)';
+        });
+        fileZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            fileZone.style.borderColor = 'rgba(230,122,46,0.25)';
+            const file = e.dataTransfer.files[0];
+            if (file && file.type.startsWith('image/')) {
+                selectedFile = file;
+                const reader = new FileReader();
+                reader.onload = (ev) => {
+                    previewImg.src = ev.target.result;
+                    previewWrap.classList.add('active');
+                };
+                reader.readAsDataURL(file);
+                fileInput.files = e.dataTransfer.files;
+            }
+        });
+
+        // Submit
+        submitBaseBtn.addEventListener('click', async () => {
+            if (!isLoggedIn) {
+                showToast('🔒 Please login with Google to add a base.', true);
+                closeModal();
+                return;
+            }
+
+            const name = baseName.value.trim() || 'Unnamed Base';
+            const desc = baseDesc.value.trim();
+
+            if (!selectedFile) {
+                showToast('⚠️ Please select an image', true);
+                return;
+            }
+
+            if (!/^https:\/\/link\.clashofclans\.com\//i.test(baseLink.value.trim())) {
+                showToast('⚠️ Enter a valid Clash of Clans in-game link', true);
+                return;
+            }
+
+            if (API_URL === 'YOUR_APPS_SCRIPT_WEB_APP_URL') {
+                showToast('⚠️ Configure the Apps Script API URL first', true);
+                return;
+            }
+
+            submitBaseBtn.disabled = true;
+            submitBaseBtn.textContent = '⏳ Uploading...';
+
+            try {
+                const image = await fileToDataUrl(selectedFile);
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify({
+                        action: 'submit',
+                        credential: googleCredential,
+                        name,
+                        desc,
+                        category: baseCategory.value,
+                        link: baseLink.value.trim(),
+                        image
+                    })
+                });
+                if (!response.ok) throw new Error(`API returned ${response.status}`);
+                const result = await response.json();
+                if (!result.success) throw new Error(result.message || 'Submission was rejected');
+                closeModal();
+                showToast('✅ Submitted for moderation!');
+            } catch (err) {
+                showToast('❌ Submission failed: ' + err.message, true);
+            } finally {
+                submitBaseBtn.disabled = false;
+                submitBaseBtn.textContent = '🚀 Upload & Add';
+            }
+        });
+
+        // ────────────────────────────────────────────────
+        //  REFRESH HERO
+        // ────────────────────────────────────────────────
+
+        refreshHeroBtn.addEventListener('click', () => {
+            renderHero();
+            showToast('⟳ Hero refreshed');
+        });
+
+        // ────────────────────────────────────────────────
+        //  LOGOUT BUTTON
+        // ────────────────────────────────────────────────
+
+        document.getElementById('logoutBtn').addEventListener('click', logout);
+
+        // ────────────────────────────────────────────────
+        //  INIT
+        // ────────────────────────────────────────────────
+
+        // Check if Google client ID is set, if not show a warning in console
+        if (GOOGLE_CLIENT_ID === 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com') {
+            console.warn('⚠️ Please replace GOOGLE_CLIENT_ID with your actual Google Client ID.');
+            showToast('⚠️ Set your Google Client ID in the script.', true);
+        } else {
+            initGoogleSignIn();
+        }
+
+        loadBases();
+        render();
+
+        // ensure UI state matches login status
+        if (!isLoggedIn) {
+            updateUIForLoggedOut();
+        }
+
+        console.log('🔥 TH18 Base Vault ready!');
+        console.log(`📦 ${bases.length} bases loaded.`);
+        console.log('ℹ️  Configure GOOGLE_CLIENT_ID and API_URL before deployment.');
+    </script>
+</body>
+</html>
