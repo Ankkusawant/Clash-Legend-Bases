@@ -15,9 +15,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- Google Identity Services Library -->
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
-
     <style>
         /* ── RESET & BASE ── */
         * {
@@ -195,52 +192,6 @@
             white-space: nowrap;
         }
 
-        /* ── GOOGLE LOGIN / PROFILE ── */
-        #googleLoginBtn {
-            min-width: 150px;
-        }
-        #userProfile {
-            display: none;
-            align-items: center;
-            gap: 12px;
-            background: var(--bg-card);
-            padding: 4px 14px 4px 6px;
-            border-radius: 40px;
-            border: 1px solid var(--border-glow);
-            box-shadow: var(--shadow-glow);
-        }
-        #userProfile img {
-            width: 34px;
-            height: 34px;
-            border-radius: 50%;
-            border: 2px solid var(--orange-mid);
-            object-fit: cover;
-        }
-        #userProfile .user-name {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--text-primary);
-            max-width: 100px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-        #userProfile .logout-btn {
-            background: transparent;
-            border: none;
-            color: var(--text-muted);
-            cursor: pointer;
-            font-weight: 700;
-            font-size: 13px;
-            padding: 4px 8px;
-            border-radius: 20px;
-            transition: 0.2s;
-            font-family: 'Open Sans', sans-serif;
-        }
-        #userProfile .logout-btn:hover {
-            color: var(--orange-bright);
-            background: rgba(230, 122, 46, 0.1);
-        }
 
         /* ── MAIN CONTAINER ── */
         .main {
@@ -762,7 +713,6 @@
         @media (max-width: 768px) {
             header { flex-direction: column; align-items: stretch; gap: 8px; }
             .header-actions { justify-content: space-between; flex-wrap: wrap; }
-            #googleLoginBtn { min-width: 120px; flex: 1; }
             .hero-th18 { padding: 28px 20px 24px; }
             .hero-th18::after { top: 12px; right: 16px; font-size: 11px; padding: 3px 12px; }
             .hero-header { flex-direction: column; align-items: flex-start; }
@@ -798,14 +748,6 @@
             <div class="logo-text">Clash<span>Layouts</span></div>
         </div>
         <div class="header-actions">
-            <!-- Google Login Button Container -->
-            <div id="googleLoginBtn"></div>
-            <!-- User Profile (hidden by default) -->
-            <div id="userProfile">
-                <img id="userPic" src="" alt="profile">
-                <span class="user-name" id="userName">User</span>
-                <button class="logout-btn" id="logoutBtn">✕ Logout</button>
-            </div>
             <span class="header-badge">🔥 TH18 Vault</span>
         </div>
     </header>
@@ -830,10 +772,10 @@
             </div>
             <div class="hero-desc">
                 Explore the best TH18 base designs — anti-3-star, war-tested, and trophy-pushing layouts.
-                <strong>Login with Google</strong> to share your own creation.
+                Add and manage your own approved layouts. To add bases reach out to clan: #2CY29YPC9 .
             </div>
             <div class="hero-actions">
-                <button class="btn btn-primary" id="addBaseBtn" disabled title="Please login to add base">➕ Add Base</button>
+                <button class="btn btn-primary" id="addBaseBtn">➕ Add Base</button>
                 <button class="btn btn-secondary" id="refreshHeroBtn">⟳ Refresh</button>
                 <span style="font-size:13px;color:var(--text-muted);margin-left:4px;" id="baseCountLabel">0 bases</span>
             </div>
@@ -844,7 +786,7 @@
             <div class="empty-state">
                 <div class="big-icon">📐</div>
                 <p style="font-size:16px;font-weight:600;color:var(--text-secondary);">No TH18 bases yet</p>
-                <p style="font-size:14px;color:var(--text-muted);">Login with Google and click “Add Base” to upload your first layout!</p>
+                <p style="font-size:14px;color:var(--text-muted);">Use “Add Base” to publish your next TH18 layout.</p>
             </div>
         </div>
 
@@ -864,7 +806,8 @@
             <textarea id="baseDesc" placeholder="e.g. Great for Clan War League"></textarea>
 
             <label for="baseCategory">Category</label>
-            <select id="baseCategory">
+            <select id="baseCategory" required>
+                <option value="" disabled selected>Select a category</option>
                 <option value="War">War</option>
                 <option value="CWL">CWL</option>
                 <option value="Legend League">Legend League</option>
@@ -872,6 +815,9 @@
                 <option value="Hybrid">Hybrid</option>
                 <option value="Trophy">Trophy</option>
             </select>
+
+            <label for="adminToken">Owner access token</label>
+            <input type="password" id="adminToken" autocomplete="current-password" required placeholder="Enter your private upload token">
 
             <label for="baseLink">Clash of Clans in-game link</label>
             <input type="url" id="baseLink" placeholder="https://link.clashofclans.com/...">
@@ -923,8 +869,7 @@
             <span class="sep">|</span> <span>العربية</span>
         </div>
         <div id="privacy" style="max-width:700px;margin:18px auto 0;font-size:12px;color:var(--text-muted);line-height:1.5;">
-            We use Google Sign-In only to identify contributors and review submissions. Submitted images and layout details
-            are stored for moderation and publication; we do not sell personal information.
+            Only the site owner can submit bases. Submitted images and layout details are stored for moderation and publication.
         </div>
     </footer>
 
@@ -933,19 +878,14 @@
         //  CONFIG (REQUIRED: Replace with your own keys)
         // ────────────────────────────────────────────────
 
-        // 🔑 Google OAuth 2.0 Client ID (from Google Cloud Console)
-        const GOOGLE_CLIENT_ID = 'https://docs.google.com/spreadsheets/d/18ak25WoOrYIlHu9JZYXIOu7CAkrD2_H4FdhuPFR7QCU';
         // 🔗 Deployed Google Apps Script web-app URL (do not put private keys here)
-        const API_URL = 'https://script.google.com/macros/s/AKfycbx2LMdxnTQ2bZsraBZy_6-GWA50Us_2ypY559w1TkYFyaUSyyaB9MjiZZfuYL61AqpI/exec';
+        const API_URL = 'https://script.google.com/macros/s/AKfycbw42ZCeC2IwvI5IP2Ps95TILYKV0tvevvqUeJkJ4PRXHLTuLoAQjIzm4OAadao9k4oV/exec';
 
         // ────────────────────────────────────────────────
         //  STATE
         // ────────────────────────────────────────────────
 
         let bases = [];
-        let isLoggedIn = false;
-        let currentUser = null;
-        let googleCredential = null;
 
         // ────────────────────────────────────────────────
         //  DOM REFS
@@ -967,6 +907,7 @@
         const baseName = document.getElementById('baseName');
         const baseDesc = document.getElementById('baseDesc');
         const baseCategory = document.getElementById('baseCategory');
+        const adminToken = document.getElementById('adminToken');
         const baseLink = document.getElementById('baseLink');
         const fileInput = document.getElementById('fileInput');
         const fileZone = document.getElementById('fileZone');
@@ -994,97 +935,6 @@
             toast.style.borderColor = isError ? '#aa3434' : 'var(--border-glow)';
             toast.classList.add('show');
             toastTimer = setTimeout(() => toast.classList.remove('show'), 3200);
-        }
-
-        // ────────────────────────────────────────────────
-        //  GOOGLE LOGIN
-        // ────────────────────────────────────────────────
-
-        function initGoogleSignIn() {
-            if (typeof google === 'undefined' || !google.accounts) {
-                // Fallback if library not loaded
-                setTimeout(initGoogleSignIn, 500);
-                return;
-            }
-            google.accounts.id.initialize({
-                client_id: GOOGLE_CLIENT_ID,
-                callback: handleCredentialResponse,
-                cancel_on_tap_outside: false
-            });
-            google.accounts.id.renderButton(
-                document.getElementById('googleLoginBtn'), {
-                    theme: 'outline',
-                    size: 'large',
-                    width: '200',
-                    text: 'continue_with',
-                    shape: 'pill',
-                    logo_alignment: 'left'
-                }
-            );
-            // Optional: one-tap sign-up
-            // google.accounts.id.prompt();
-        }
-
-        function handleCredentialResponse(response) {
-            try {
-                const payload = parseJwt(response.credential);
-                googleCredential = response.credential;
-                currentUser = {
-                    name: payload.name,
-                    email: payload.email,
-                    picture: payload.picture,
-                    sub: payload.sub
-                };
-                isLoggedIn = true;
-                updateUIForLoggedIn();
-                showToast(`✅ Welcome, ${currentUser.name}!`);
-                render(); // Refresh to enable buttons
-            } catch (e) {
-                showToast('⚠️ Login failed, please try again.', true);
-                console.error(e);
-            }
-        }
-
-        function parseJwt(token) {
-            const base64Url = token.split('.')[1];
-            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-            const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-            }).join(''));
-            return JSON.parse(jsonPayload);
-        }
-
-        function logout() {
-            isLoggedIn = false;
-            currentUser = null;
-            googleCredential = null;
-            updateUIForLoggedOut();
-            showToast('👋 Logged out.');
-            // Optional: disable auto-select
-            if (typeof google !== 'undefined' && google.accounts) {
-                google.accounts.id.disableAutoSelect();
-            }
-            render();
-        }
-
-        function updateUIForLoggedIn() {
-            document.getElementById('userProfile').style.display = 'flex';
-            document.getElementById('userPic').src = currentUser.picture;
-            document.getElementById('userName').textContent = currentUser.name;
-            document.getElementById('googleLoginBtn').style.display = 'none';
-            addBaseBtn.disabled = false;
-            addBaseBtn.title = 'Add Base';
-            addBaseBtn.style.opacity = 1;
-            addBaseBtn.style.cursor = 'pointer';
-        }
-
-        function updateUIForLoggedOut() {
-            document.getElementById('userProfile').style.display = 'none';
-            document.getElementById('googleLoginBtn').style.display = 'block';
-            addBaseBtn.disabled = true;
-            addBaseBtn.title = 'Please login with Google to add a base';
-            addBaseBtn.style.opacity = 0.5;
-            addBaseBtn.style.cursor = 'not-allowed';
         }
 
         // ────────────────────────────────────────────────
@@ -1128,7 +978,7 @@
                     <div class="empty-state">
                         <div class="big-icon">📐</div>
                         <p style="font-size:16px;font-weight:600;color:var(--text-secondary);">Vault is empty</p>
-                        <p style="font-size:14px;color:var(--text-muted);">Login with Google and click “Add Base” to upload your first layout!</p>
+                        <p style="font-size:14px;color:var(--text-muted);">Use “Add Base” to publish your next TH18 layout.</p>
                     </div>
                 `;
                 return;
@@ -1237,14 +1087,11 @@
         let selectedFile = null;
 
         function openModal() {
-            if (!isLoggedIn) {
-                showToast('🔒 Please login with Google to add a base.', true);
-                return;
-            }
             modal.classList.add('active');
             baseName.value = 'TH18 War Base';
             baseDesc.value = '';
-            baseCategory.value = 'War';
+            baseCategory.value = '';
+            adminToken.value = '';
             baseLink.value = '';
             selectedFile = null;
             previewWrap.classList.remove('active');
@@ -1307,12 +1154,6 @@
 
         // Submit
         submitBaseBtn.addEventListener('click', async () => {
-            if (!isLoggedIn) {
-                showToast('🔒 Please login with Google to add a base.', true);
-                closeModal();
-                return;
-            }
-
             const name = baseName.value.trim() || 'Unnamed Base';
             const desc = baseDesc.value.trim();
 
@@ -1323,6 +1164,16 @@
 
             if (!/^https:\/\/link\.clashofclans\.com\//i.test(baseLink.value.trim())) {
                 showToast('⚠️ Enter a valid Clash of Clans in-game link', true);
+                return;
+            }
+
+            if (!baseCategory.value) {
+                showToast('⚠️ Select a category', true);
+                return;
+            }
+
+            if (!adminToken.value.trim()) {
+                showToast('⚠️ Enter the owner access token', true);
                 return;
             }
 
@@ -1341,7 +1192,7 @@
                     headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                     body: JSON.stringify({
                         action: 'submit',
-                        credential: googleCredential,
+                        adminToken: adminToken.value.trim(),
                         name,
                         desc,
                         category: baseCategory.value,
@@ -1372,34 +1223,15 @@
         });
 
         // ────────────────────────────────────────────────
-        //  LOGOUT BUTTON
-        // ────────────────────────────────────────────────
-
-        document.getElementById('logoutBtn').addEventListener('click', logout);
-
-        // ────────────────────────────────────────────────
         //  INIT
         // ────────────────────────────────────────────────
-
-        // Check if Google client ID is set, if not show a warning in console
-        if (GOOGLE_CLIENT_ID === 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com') {
-            console.warn('⚠️ Please replace GOOGLE_CLIENT_ID with your actual Google Client ID.');
-            showToast('⚠️ Set your Google Client ID in the script.', true);
-        } else {
-            initGoogleSignIn();
-        }
 
         loadBases();
         render();
 
-        // ensure UI state matches login status
-        if (!isLoggedIn) {
-            updateUIForLoggedOut();
-        }
-
         console.log('🔥 TH18 Base Vault ready!');
         console.log(`📦 ${bases.length} bases loaded.`);
-        console.log('ℹ️  Configure GOOGLE_CLIENT_ID and API_URL before deployment.');
+        console.log('ℹ️  Owner-only upload mode is enabled.');
     </script>
 </body>
 </html>
