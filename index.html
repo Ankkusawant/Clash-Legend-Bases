@@ -772,7 +772,7 @@
             </div>
             <div class="hero-desc">
                 Explore the best TH18 base designs — anti-3-star, war-tested, and trophy-pushing layouts.
-                Add and manage your own approved layouts. To add bases reach out to clan: #2CY29YPC9 .
+                Add and manage your own approved layouts. If you wish to submit your base here come and send your base in clan: #2CY29YPC9
             </div>
             <div class="hero-actions">
                 <button class="btn btn-primary" id="addBaseBtn">➕ Add Base</button>
@@ -797,7 +797,7 @@
         <div class="modal">
             <button class="modal-close" id="closeModalBtn">✕</button>
             <h2>📤 Add New TH18 Base</h2>
-            <p>Submit an image and an in-game link. Your layout will be reviewed before it appears publicly.</p>
+            <p>Submit an image and an in-game link. Owner uploads are published immediately.</p>
 
             <label for="baseName">Base Name</label>
             <input type="text" id="baseName" placeholder="e.g. Anti-3-Star TH18 #1" value="TH18 War Base">
@@ -869,7 +869,7 @@
             <span class="sep">|</span> <span>العربية</span>
         </div>
         <div id="privacy" style="max-width:700px;margin:18px auto 0;font-size:12px;color:var(--text-muted);line-height:1.5;">
-            Only the site owner can submit bases. Submitted images and layout details are stored for moderation and publication.
+            Only the site owner can submit bases. Owner submissions are published immediately after validation.
         </div>
     </footer>
 
@@ -878,8 +878,8 @@
         //  CONFIG (REQUIRED: Replace with your own keys)
         // ────────────────────────────────────────────────
 
-        // 🔗 Deployed Google Apps Script web-app URL (do not put private keys here)
-        const API_URL = 'https://script.google.com/macros/s/AKfycbw42ZCeC2IwvI5IP2Ps95TILYKV0tvevvqUeJkJ4PRXHLTuLoAQjIzm4OAadao9k4oV/exec';
+        // 🔗 Deployed Apps Script web-app URL (do not put private keys here)
+        const API_URL = 'https://script.google.com/macros/s/AKfycbzNJklJgqW0CnHjOyrLcCw2A4HGSj48ytSJy-kw0Ng--35EkyO3SaVtjocpuMJy0YwX/exec';
 
         // ────────────────────────────────────────────────
         //  STATE
@@ -1204,7 +1204,8 @@
                 const result = await response.json();
                 if (!result.success) throw new Error(result.message || 'Submission was rejected');
                 closeModal();
-                showToast('✅ Submitted for moderation!');
+                await loadBases();
+                showToast('✅ Base published successfully!');
             } catch (err) {
                 showToast('❌ Submission failed: ' + err.message, true);
             } finally {
