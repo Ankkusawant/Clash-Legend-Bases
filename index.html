@@ -14,14 +14,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-    
+
     <style>
         /* ── RESET & BASE ── */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Open Sans', sans-serif;
@@ -30,16 +26,9 @@
             padding-bottom: 120px;
             min-height: 100vh;
         }
-        body.welcome-open {
-            overflow: hidden;
-        }
+        body.welcome-open { overflow: hidden; }
+        a { text-decoration: none; color: inherit; }
 
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        /* ── DARK ORANGE THEME VARIABLES ── */
         :root {
             --bg-primary: #1a0e08;
             --bg-secondary: #26150e;
@@ -54,692 +43,268 @@
             --text-muted: #a68e7a;
             --border-glow: rgba(230, 122, 46, 0.35);
             --shadow-glow: 0 0 30px rgba(230, 122, 46, 0.15);
+            --green: #4caf6a;
         }
 
-        /* ── SCROLLBAR ── */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--bg-primary);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--orange-mid);
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--orange-bright);
-        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: var(--orange-mid); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--orange-bright); }
 
         /* ── WELCOME ANIMATION ── */
         .welcome-overlay {
-            position: fixed;
-            inset: 0;
-            z-index: 10000;
-            display: grid;
-            place-items: center;
+            position: fixed; inset: 0; z-index: 10000;
+            display: grid; place-items: center;
             background: #120905;
             animation: welcome-fade-out 0.8s ease 3.2s forwards;
         }
         .welcome-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 22px;
-            padding: 24px;
-            text-align: center;
+            display: flex; flex-direction: column; align-items: center; gap: 22px;
+            padding: 24px; text-align: center;
             animation: welcome-rise 0.9s ease both;
         }
         .welcome-content img {
-            width: min(72vw, 360px);
-            max-height: 280px;
-            object-fit: contain;
-            border-radius: 24px;
-            box-shadow: 0 0 55px rgba(245, 154, 58, 0.35);
+            width: min(72vw, 360px); max-height: 280px; object-fit: contain;
+            border-radius: 24px; box-shadow: 0 0 55px rgba(245, 154, 58, 0.35);
         }
         .welcome-content h1 {
-            color: var(--orange-bright);
-            font-size: clamp(28px, 6vw, 52px);
-            font-weight: 800;
-            letter-spacing: -1px;
-            text-shadow: 0 0 24px rgba(245, 154, 58, 0.35);
+            color: var(--orange-bright); font-size: clamp(28px, 6vw, 52px); font-weight: 800;
+            letter-spacing: -1px; text-shadow: 0 0 24px rgba(245, 154, 58, 0.35);
         }
-        .welcome-skip {
-            color: var(--text-muted);
-            font: 600 12px 'Open Sans', sans-serif;
-            opacity: 0;
-            animation: welcome-hint 0.5s ease 1.5s forwards;
-        }
-        @keyframes welcome-rise {
-            from { opacity: 0; transform: translateY(24px) scale(0.96); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-        @keyframes welcome-hint {
-            to { opacity: 1; }
-        }
-        @keyframes welcome-fade-out {
-            to { opacity: 0; visibility: hidden; pointer-events: none; }
-        }
+        .welcome-skip { color: var(--text-muted); font: 600 12px 'Open Sans', sans-serif; opacity: 0; animation: welcome-hint 0.5s ease 1.5s forwards; }
+        @keyframes welcome-rise { from { opacity: 0; transform: translateY(24px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
+        @keyframes welcome-hint { to { opacity: 1; } }
+        @keyframes welcome-fade-out { to { opacity: 0; visibility: hidden; pointer-events: none; } }
 
         /* ── HEADER ── */
         header {
-            background: var(--bg-secondary);
-            border-bottom: 2px solid var(--orange-dark);
-            padding: 12px 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 12px;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            background: var(--bg-secondary); border-bottom: 2px solid var(--orange-dark);
+            padding: 12px 24px; display: flex; align-items: center; justify-content: space-between;
+            flex-wrap: wrap; gap: 12px; position: sticky; top: 0; z-index: 100;
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
         }
-
-        .logo-wrap {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
+        .logo-wrap { display: flex; align-items: center; gap: 10px; }
         .logo-icon {
-            width: 44px;
-            height: 44px;
+            width: 44px; height: 44px;
             background: radial-gradient(circle at 30% 30%, var(--orange-bright), var(--orange-dark));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            font-size: 20px;
-            color: #1a0e08;
-            box-shadow: 0 0 20px var(--border-glow);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-weight: 800; font-size: 20px; color: #1a0e08; box-shadow: 0 0 20px var(--border-glow);
         }
-
         .logo-text {
-            font-size: 24px;
-            font-weight: 800;
-            letter-spacing: -0.5px;
+            font-size: 24px; font-weight: 800; letter-spacing: -0.5px;
             background: linear-gradient(135deg, var(--orange-bright), var(--orange-dark));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
         }
-        .logo-text span {
-            font-weight: 400;
-            -webkit-text-fill-color: var(--text-secondary);
-            background: none;
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-
+        .logo-text span { font-weight: 400; -webkit-text-fill-color: var(--text-secondary); background: none; }
+        .header-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
         .header-badge {
-            background: var(--orange-dark);
-            color: #fff;
-            font-size: 11px;
-            font-weight: 700;
-            padding: 4px 14px;
-            border-radius: 20px;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            box-shadow: 0 0 20px rgba(230, 122, 46, 0.3);
-            white-space: nowrap;
+            background: var(--orange-dark); color: #fff; font-size: 11px; font-weight: 700;
+            padding: 4px 14px; border-radius: 20px; letter-spacing: 0.5px; text-transform: uppercase;
+            box-shadow: 0 0 20px rgba(230, 122, 46, 0.3); white-space: nowrap;
         }
-
+        .admin-badge {
+            display: none; align-items: center; gap: 8px; background: rgba(76, 175, 106, 0.15);
+            border: 1px solid rgba(76, 175, 106, 0.4); color: var(--green);
+            font-size: 11px; font-weight: 700; padding: 4px 12px 4px 14px; border-radius: 20px;
+        }
+        .admin-badge button {
+            background: none; border: none; color: var(--green); font-weight: 700; font-size: 11px;
+            cursor: pointer; text-decoration: underline; padding: 0;
+        }
+        body.is-admin .admin-badge { display: inline-flex; }
+        .admin-only { display: none; }
+        body.is-admin .admin-only { display: inline-flex; }
+        .owner-only { display: none; }
+        body.is-owner .owner-only { display: inline-flex; }
 
         /* ── MAIN CONTAINER ── */
-        .main {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 24px 20px 40px;
-        }
+        .main { max-width: 1280px; margin: 0 auto; padding: 24px 20px 40px; }
 
         /* ── HERO SECTION (TH18) ── */
         .hero-th18 {
             background: linear-gradient(145deg, var(--bg-secondary), var(--bg-card));
-            border-radius: 28px;
-            padding: 40px 36px 36px;
-            margin-bottom: 48px;
+            border-radius: 28px; padding: 40px 36px 36px; margin-bottom: 32px;
             border: 1px solid var(--border-glow);
             box-shadow: var(--shadow-glow), inset 0 1px 0 rgba(245, 154, 58, 0.08);
-            position: relative;
-            overflow: hidden;
+            position: relative; overflow: hidden;
         }
         .hero-th18::before {
-            content: '';
-            position: absolute;
-            top: -60%;
-            right: -20%;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(230, 122, 46, 0.08), transparent 70%);
-            pointer-events: none;
+            content: ''; position: absolute; top: -60%; right: -20%; width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(230, 122, 46, 0.08), transparent 70%); pointer-events: none;
         }
         .hero-th18::after {
-            content: '★ NEW';
-            position: absolute;
-            top: 16px;
-            right: 24px;
-            font-size: 13px;
-            font-weight: 800;
-            color: var(--orange-bright);
-            background: rgba(230, 122, 46, 0.15);
-            padding: 4px 16px;
-            border-radius: 20px;
-            border: 1px solid var(--border-glow);
-            letter-spacing: 1px;
+            content: '★ NEW'; position: absolute; top: 16px; right: 24px; font-size: 13px; font-weight: 800;
+            color: var(--orange-bright); background: rgba(230, 122, 46, 0.15); padding: 4px 16px;
+            border-radius: 20px; border: 1px solid var(--border-glow); letter-spacing: 1px;
         }
-
-        .hero-header {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-            flex-wrap: wrap;
-            margin-bottom: 16px;
-        }
+        .hero-header { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin-bottom: 16px; }
         .hero-thumb {
-            width: 120px;
-            height: 120px;
-            border-radius: 20px;
-            background: var(--bg-primary);
-            border: 2px solid var(--orange-dark);
-            overflow: hidden;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
+            width: 120px; height: 120px; border-radius: 20px; background: var(--bg-primary);
+            border: 2px solid var(--orange-dark); overflow: hidden; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center; position: relative;
         }
-        .hero-thumb img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .hero-thumb .placeholder-icon {
-            font-size: 48px;
-            opacity: 0.3;
-            color: var(--orange-mid);
-        }
-
-        .hero-title-group {
-            flex: 1;
-        }
+        .hero-thumb img { width: 100%; height: 100%; object-fit: cover; }
+        .hero-thumb .placeholder-icon { font-size: 48px; opacity: 0.3; color: var(--orange-mid); }
+        .hero-title-group { flex: 1; }
         .hero-title-group h1 {
-            font-size: 36px;
-            font-weight: 800;
+            font-size: 36px; font-weight: 800;
             background: linear-gradient(135deg, #fff 40%, var(--orange-bright));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1.2;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1.2;
         }
-        .hero-title-group .sub {
-            font-size: 16px;
-            color: var(--text-secondary);
-            margin-top: 4px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-        .hero-title-group .sub .tag {
-            background: var(--orange-dark);
-            padding: 2px 14px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 700;
-            color: #fff;
-            -webkit-text-fill-color: #fff;
-        }
-        .hero-desc {
-            color: var(--text-secondary);
-            font-size: 15px;
-            line-height: 1.6;
-            max-width: 700px;
-            margin-top: 4px;
-        }
-
-        .hero-actions {
-            display: flex;
-            gap: 14px;
-            flex-wrap: wrap;
-            margin-top: 20px;
-            align-items: center;
-        }
+        .hero-title-group .sub { font-size: 16px; color: var(--text-secondary); margin-top: 4px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+        .hero-title-group .sub .tag { background: var(--orange-dark); padding: 2px 14px; border-radius: 12px; font-size: 12px; font-weight: 700; color: #fff; -webkit-text-fill-color: #fff; }
+        .hero-desc { color: var(--text-secondary); font-size: 15px; line-height: 1.6; max-width: 700px; margin-top: 4px; }
+        .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 20px; align-items: center; }
 
         /* ── BUTTONS ── */
         .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 30px;
-            border-radius: 40px;
-            font-weight: 700;
-            font-size: 15px;
-            border: none;
-            cursor: pointer;
-            transition: all 0.25s ease;
+            display: inline-flex; align-items: center; gap: 10px; padding: 12px 30px; border-radius: 40px;
+            font-weight: 700; font-size: 15px; border: none; cursor: pointer; transition: all 0.25s ease;
             font-family: 'Open Sans', sans-serif;
         }
-        .btn-primary {
-            background: linear-gradient(135deg, var(--orange-bright), var(--orange-dark));
-            color: #1a0e08;
-            box-shadow: 0 4px 20px rgba(230, 122, 46, 0.35);
+        .btn-primary { background: linear-gradient(135deg, var(--orange-bright), var(--orange-dark)); color: #1a0e08; box-shadow: 0 4px 20px rgba(230, 122, 46, 0.35); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 35px rgba(230, 122, 46, 0.5); }
+        .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+        .btn-secondary { background: var(--bg-card); color: var(--text-primary); border: 1px solid var(--border-glow); }
+        .btn-secondary:hover { background: var(--bg-card-hover); border-color: var(--orange-mid); }
+        .btn-outline { background: transparent; color: var(--text-primary); border: 1px solid var(--text-muted); }
+        .btn-outline:hover { border-color: var(--orange-bright); color: var(--orange-bright); }
+
+        /* ── SEARCH & FILTER BAR ── */
+        .filter-bar {
+            display: flex; gap: 14px; flex-wrap: wrap; align-items: center;
+            margin-bottom: 20px; padding: 16px 20px;
+            background: var(--bg-card); border-radius: 20px; border: 1px solid rgba(230, 122, 46, 0.12);
         }
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 35px rgba(230, 122, 46, 0.5);
+        .search-input-wrap { position: relative; flex: 1; min-width: 220px; }
+        .search-input-wrap input {
+            width: 100%; padding: 11px 16px 11px 40px; border-radius: 14px;
+            border: 1px solid rgba(230, 122, 46, 0.2); background: var(--bg-primary);
+            color: var(--text-primary); font-family: 'Open Sans', sans-serif; font-size: 14px;
         }
-        .btn-primary:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
+        .search-input-wrap input:focus { outline: none; border-color: var(--orange-mid); box-shadow: 0 0 0 3px rgba(230, 122, 46, 0.15); }
+        .search-input-wrap .icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); opacity: 0.5; font-size: 15px; }
+        .chip-row { display: flex; gap: 8px; flex-wrap: wrap; }
+        .chip {
+            padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 600;
+            background: var(--bg-primary); color: var(--text-secondary);
+            border: 1px solid rgba(230, 122, 46, 0.15); cursor: pointer; transition: 0.2s;
+            font-family: 'Open Sans', sans-serif;
         }
-        .btn-secondary {
-            background: var(--bg-card);
-            color: var(--text-primary);
-            border: 1px solid var(--border-glow);
-        }
-        .btn-secondary:hover {
-            background: var(--bg-card-hover);
-            border-color: var(--orange-mid);
-        }
-        .btn-outline {
-            background: transparent;
-            color: var(--text-primary);
-            border: 1px solid var(--text-muted);
-        }
-        .btn-outline:hover {
-            border-color: var(--orange-bright);
-            color: var(--orange-bright);
-        }
+        .chip:hover { border-color: var(--orange-mid); color: var(--text-primary); }
+        .chip.active { background: var(--orange-dark); color: #fff; border-color: var(--orange-dark); }
 
         /* ── TH18 BASE GRID ── */
-        .base-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 18px;
-            margin-top: 18px;
-        }
-        .base-card {
-            background: var(--bg-card);
-            border-radius: 16px;
-            overflow: hidden;
-            border: 1px solid rgba(230, 122, 46, 0.12);
-            transition: all 0.25s ease;
-            cursor: default;
-        }
-        .base-card:hover {
-            border-color: var(--border-glow);
-            box-shadow: var(--shadow-glow);
-            transform: translateY(-3px);
-        }
-        .base-card .card-img {
-            width: 100%;
-            aspect-ratio: 16/10;
-            background: var(--bg-primary);
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-        .base-card .card-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            cursor: zoom-in;
-        }
-        .base-card .card-img .no-img {
-            color: var(--text-muted);
-            font-size: 13px;
-            opacity: 0.5;
-        }
-        .base-card .card-body {
-            padding: 14px 16px 16px;
-        }
-        .base-card .card-title {
-            font-weight: 700;
-            font-size: 15px;
-            color: var(--text-primary);
-            margin-bottom: 2px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .base-card .card-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-        .base-card .card-meta .date {
-            font-size: 11px;
-        }
-        .base-card .card-actions {
-            display: flex;
-            gap: 6px;
-            margin-top: 10px;
-        }
+        .base-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 18px; margin-top: 18px; }
+        .base-card { background: var(--bg-card); border-radius: 16px; overflow: hidden; border: 1px solid rgba(230, 122, 46, 0.12); transition: all 0.25s ease; cursor: default; }
+        .base-card:hover { border-color: var(--border-glow); box-shadow: var(--shadow-glow); transform: translateY(-3px); }
+        .base-card .card-img { width: 100%; aspect-ratio: 16/10; background: var(--bg-primary); overflow: hidden; display: flex; align-items: center; justify-content: center; position: relative; }
+        .base-card .card-img img { width: 100%; height: 100%; object-fit: cover; cursor: zoom-in; }
+        .base-card .card-img .no-img { color: var(--text-muted); font-size: 13px; opacity: 0.5; }
+        .base-card .card-body { padding: 14px 16px 16px; }
+        .base-card .card-title { font-weight: 700; font-size: 15px; color: var(--text-primary); margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .base-card .card-meta { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--text-muted); }
+        .base-card .card-meta .date { font-size: 11px; }
+        .base-card .card-actions { display: flex; gap: 6px; margin-top: 10px; }
         .base-card .card-actions .btn-sm {
-            padding: 4px 14px;
-            font-size: 12px;
-            border-radius: 20px;
-            border: none;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.2s;
-            font-family: 'Open Sans', sans-serif;
+            padding: 6px 14px; font-size: 12px; border-radius: 20px; border: none; font-weight: 600;
+            cursor: pointer; transition: 0.2s; font-family: 'Open Sans', sans-serif; flex: 1;
+            text-align: center; display: inline-flex; align-items: center; justify-content: center; gap: 5px;
         }
-        .btn-sm-copy {
-            background: var(--orange-dark);
-            color: #fff;
-        }
-        .btn-sm-copy:hover {
-            background: var(--orange-bright);
-        }
-        .btn-sm-del {
-            background: rgba(180, 60, 60, 0.3);
-            color: #d47a7a;
-        }
-        .btn-sm-del:hover {
-            background: rgba(180, 60, 60, 0.5);
-        }
+        .btn-sm-copy { background: rgba(230, 122, 46, 0.15); color: var(--orange-bright); border: 1px solid rgba(230, 122, 46, 0.3) !important; }
+        .btn-sm-copy:hover { background: rgba(230, 122, 46, 0.25); }
+        .btn-sm-open { background: var(--orange-dark); color: #fff; }
+        .btn-sm-open:hover { background: var(--orange-bright); }
+        .btn-sm[disabled] { opacity: 0.4; cursor: not-allowed; }
 
-        .empty-state {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 50px 20px;
-            color: var(--text-muted);
-        }
-        .empty-state .big-icon {
-            font-size: 64px;
-            opacity: 0.25;
-            margin-bottom: 12px;
-        }
+        .empty-state { grid-column: 1 / -1; text-align: center; padding: 50px 20px; color: var(--text-muted); }
+        .empty-state .big-icon { font-size: 64px; opacity: 0.25; margin-bottom: 12px; }
 
         /* ── MODAL ── */
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.75);
-            backdrop-filter: blur(6px);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 999;
-            padding: 20px;
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(6px); display: none; align-items: center; justify-content: center; z-index: 999; padding: 20px; }
+        .modal-overlay.active { display: flex; }
+        .image-lightbox { position: fixed; inset: 0; z-index: 10001; display: none; align-items: center; justify-content: center; padding: 24px; background: rgba(0, 0, 0, 0.88); cursor: zoom-out; }
+        .image-lightbox.active { display: flex; }
+        .image-lightbox img { max-width: min(96vw, 1400px); max-height: 92vh; object-fit: contain; border-radius: 12px; box-shadow: 0 20px 80px rgba(0, 0, 0, 0.8); }
+        .image-lightbox-close { position: absolute; top: 18px; right: 24px; border: 0; background: transparent; color: #fff; font-size: 32px; cursor: pointer; }
+        .modal { background: var(--bg-secondary); border-radius: 28px; max-width: 540px; width: 100%; padding: 36px 32px 32px; border: 1px solid var(--border-glow); box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7); position: relative; max-height: 90vh; overflow-y: auto; }
+        .modal-close { position: absolute; top: 16px; right: 20px; background: none; border: none; color: var(--text-muted); font-size: 28px; cursor: pointer; transition: 0.2s; line-height: 1; }
+        .modal-close:hover { color: #fff; transform: rotate(90deg); }
+        .modal h2 { font-size: 26px; font-weight: 800; margin-bottom: 6px; background: linear-gradient(135deg, var(--orange-bright), var(--orange-dark)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .modal p.modal-hint { color: var(--text-secondary); font-size: 14px; margin-bottom: 20px; }
+        .modal label { display: block; font-weight: 600; font-size: 14px; margin: 14px 0 4px; color: var(--text-secondary); }
+        .modal input, .modal textarea, .modal select {
+            width: 100%; padding: 12px 16px; border-radius: 12px; border: 1px solid rgba(230, 122, 46, 0.2);
+            background: var(--bg-primary); color: var(--text-primary); font-family: 'Open Sans', sans-serif; font-size: 14px; transition: 0.2s;
         }
-        .modal-overlay.active {
-            display: flex;
+        .modal input:focus, .modal textarea:focus, .modal select:focus { outline: none; border-color: var(--orange-mid); box-shadow: 0 0 0 3px rgba(230, 122, 46, 0.15); }
+        .modal textarea { resize: vertical; min-height: 70px; }
+        .modal .file-zone { border: 2px dashed rgba(230, 122, 46, 0.25); border-radius: 16px; padding: 30px 20px; text-align: center; cursor: pointer; transition: 0.25s; margin-top: 6px; position: relative; }
+        .modal .file-zone:hover { border-color: var(--orange-mid); background: rgba(230, 122, 46, 0.04); }
+        .modal .file-zone .icon { font-size: 40px; opacity: 0.3; display: block; }
+        .modal .file-zone .hint { font-size: 13px; color: var(--text-muted); margin-top: 6px; }
+        .modal .file-zone input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+        .modal .preview-wrap { margin-top: 12px; display: none; }
+        .modal .preview-wrap img { max-width: 100%; max-height: 180px; border-radius: 12px; border: 1px solid var(--border-glow); }
+        .modal .preview-wrap.active { display: block; }
+        .modal .btn-row { display: flex; gap: 12px; margin-top: 22px; flex-wrap: wrap; }
+        .modal .btn-row .btn { flex: 1; justify-content: center; min-width: 120px; }
+        .modal .progress-bar { height: 4px; background: var(--bg-primary); border-radius: 4px; margin-top: 16px; overflow: hidden; display: none; }
+        .modal .progress-bar.active { display: block; }
+        .modal .progress-bar .fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--orange-dark), var(--orange-bright)); border-radius: 4px; transition: width 0.4s ease; }
+        .modal .field-error { color: #e08585; font-size: 12px; margin-top: 4px; display: none; }
+
+        /* ── CONTRIBUTORS PANEL ── */
+        .contributor-row {
+            display: flex; align-items: center; justify-content: space-between; gap: 10px;
+            padding: 10px 14px; border-radius: 12px; background: var(--bg-primary);
+            border: 1px solid rgba(230, 122, 46, 0.12); margin-top: 8px;
         }
-        .image-lightbox {
-            position: fixed;
-            inset: 0;
-            z-index: 10001;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 24px;
-            background: rgba(0, 0, 0, 0.88);
-            cursor: zoom-out;
+        .contributor-row .name { font-weight: 700; font-size: 14px; }
+        .contributor-row .meta { font-size: 11px; color: var(--text-muted); }
+        .contributor-row.inactive { opacity: 0.5; }
+        .contributor-row .revoke-btn {
+            background: rgba(180, 60, 60, 0.15); color: #d47a7a; border: none; border-radius: 20px;
+            padding: 5px 14px; font-size: 12px; font-weight: 600; cursor: pointer;
         }
-        .image-lightbox.active {
-            display: flex;
+        .contributor-row .revoke-btn:hover { background: rgba(180, 60, 60, 0.3); }
+        .invite-result {
+            display: none; margin-top: 14px; padding: 14px; border-radius: 14px;
+            background: rgba(76, 175, 106, 0.1); border: 1px solid rgba(76, 175, 106, 0.35);
         }
-        .image-lightbox img {
-            max-width: min(96vw, 1400px);
-            max-height: 92vh;
-            object-fit: contain;
-            border-radius: 12px;
-            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.8);
+        .invite-result.active { display: block; }
+        .invite-result .token-box {
+            display: flex; gap: 8px; margin-top: 8px; align-items: center;
         }
-        .image-lightbox-close {
-            position: absolute;
-            top: 18px;
-            right: 24px;
-            border: 0;
-            background: transparent;
-            color: #fff;
-            font-size: 32px;
-            cursor: pointer;
+        .invite-result .token-box input {
+            font-family: monospace; font-size: 12px; background: var(--bg-primary);
         }
-        .modal {
-            background: var(--bg-secondary);
-            border-radius: 28px;
-            max-width: 540px;
-            width: 100%;
-            padding: 36px 32px 32px;
-            border: 1px solid var(--border-glow);
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
-            position: relative;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-        .modal-close {
-            position: absolute;
-            top: 16px;
-            right: 20px;
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-size: 28px;
-            cursor: pointer;
-            transition: 0.2s;
-            line-height: 1;
-        }
-        .modal-close:hover {
-            color: #fff;
-            transform: rotate(90deg);
-        }
-        .modal h2 {
-            font-size: 26px;
-            font-weight: 800;
-            margin-bottom: 6px;
-            background: linear-gradient(135deg, var(--orange-bright), var(--orange-dark));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .modal p {
-            color: var(--text-secondary);
-            font-size: 14px;
-            margin-bottom: 20px;
-        }
-        .modal label {
-            display: block;
-            font-weight: 600;
-            font-size: 14px;
-            margin: 14px 0 4px;
-            color: var(--text-secondary);
-        }
-        .modal input,
-        .modal textarea {
-            width: 100%;
-            padding: 12px 16px;
-            border-radius: 12px;
-            border: 1px solid rgba(230, 122, 46, 0.2);
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            font-family: 'Open Sans', sans-serif;
-            font-size: 14px;
-            transition: 0.2s;
-        }
-        .modal input:focus,
-        .modal textarea:focus {
-            outline: none;
-            border-color: var(--orange-mid);
-            box-shadow: 0 0 0 3px rgba(230, 122, 46, 0.15);
-        }
-        .modal textarea {
-            resize: vertical;
-            min-height: 70px;
-        }
-        .modal select {
-            width: 100%;
-            padding: 12px 16px;
-            border-radius: 12px;
-            border: 1px solid rgba(230, 122, 46, 0.2);
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            font-family: 'Open Sans', sans-serif;
-            font-size: 14px;
-        }
-        .modal .file-zone {
-            border: 2px dashed rgba(230, 122, 46, 0.25);
-            border-radius: 16px;
-            padding: 30px 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: 0.25s;
-            margin-top: 6px;
-            position: relative;
-        }
-        .modal .file-zone:hover {
-            border-color: var(--orange-mid);
-            background: rgba(230, 122, 46, 0.04);
-        }
-        .modal .file-zone .icon {
-            font-size: 40px;
-            opacity: 0.3;
-            display: block;
-        }
-        .modal .file-zone .hint {
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-top: 6px;
-        }
-        .modal .file-zone input[type="file"] {
-            position: absolute;
-            inset: 0;
-            opacity: 0;
-            cursor: pointer;
-        }
-        .modal .preview-wrap {
-            margin-top: 12px;
-            display: none;
-        }
-        .modal .preview-wrap img {
-            max-width: 100%;
-            max-height: 180px;
-            border-radius: 12px;
-            border: 1px solid var(--border-glow);
-        }
-        .modal .preview-wrap.active {
-            display: block;
-        }
-        .modal .btn-row {
-            display: flex;
-            gap: 12px;
-            margin-top: 22px;
-            flex-wrap: wrap;
-        }
-        .modal .btn-row .btn {
-            flex: 1;
-            justify-content: center;
-            min-width: 120px;
-        }
-        .modal .progress-bar {
-            height: 4px;
-            background: var(--bg-primary);
-            border-radius: 4px;
-            margin-top: 16px;
-            overflow: hidden;
-            display: none;
-        }
-        .modal .progress-bar.active {
-            display: block;
-        }
-        .modal .progress-bar .fill {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, var(--orange-dark), var(--orange-bright));
-            border-radius: 4px;
-            transition: width 0.4s ease;
-        }
+        .invite-result .token-box button { white-space: nowrap; }
+        .invite-result .warn { font-size: 12px; color: var(--text-muted); margin-top: 8px; }
 
         /* ── TOAST ── */
         .toast {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-glow);
-            padding: 14px 28px;
-            border-radius: 40px;
-            font-weight: 600;
-            font-size: 14px;
-            color: var(--text-primary);
-            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.7);
-            z-index: 9999;
-            opacity: 0;
-            transition: opacity 0.4s ease, transform 0.4s ease;
-            transform: translateX(-50%) translateY(20px);
-            pointer-events: none;
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            background: var(--bg-secondary); border: 1px solid var(--border-glow); padding: 14px 28px;
+            border-radius: 40px; font-weight: 600; font-size: 14px; color: var(--text-primary);
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.7); z-index: 9999; opacity: 0;
+            transition: opacity 0.4s ease, transform 0.4s ease; transform: translateX(-50%) translateY(20px); pointer-events: none;
         }
-        .toast.show {
-            opacity: 1;
-            transform: translateX(-50%) translateY(0);
-        }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
         /* ── FOOTER ── */
-        footer {
-            background: var(--bg-secondary);
-            border-top: 1px solid var(--border-glow);
-            padding: 32px 24px 24px;
-            text-align: center;
-            margin-top: 40px;
-        }
-        footer .supercell {
-            font-size: 13px;
-            color: var(--text-muted);
-            max-width: 700px;
-            margin: 0 auto 12px;
-            line-height: 1.5;
-        }
-        footer .supercell a {
-            color: var(--orange-bright);
-            text-decoration: underline;
-        }
-        footer .copy {
-            font-size: 13px;
-            color: var(--text-muted);
-        }
-        footer .copy a {
-            color: var(--text-secondary);
-            margin: 0 6px;
-        }
-        footer .copy a:hover {
-            color: var(--orange-bright);
-        }
-        footer .langs {
-            margin-top: 16px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 4px 12px;
-            font-size: 13px;
-            color: var(--text-muted);
-        }
-        footer .langs a {
-            color: var(--text-secondary);
-            transition: 0.2s;
-        }
-        footer .langs a:hover {
-            color: var(--orange-bright);
-        }
-        footer .langs .sep {
-            opacity: 0.3;
-        }
+        footer { background: var(--bg-secondary); border-top: 1px solid var(--border-glow); padding: 32px 24px 24px; text-align: center; margin-top: 40px; }
+        footer .supercell { font-size: 13px; color: var(--text-muted); max-width: 700px; margin: 0 auto 12px; line-height: 1.5; }
+        footer .supercell a { color: var(--orange-bright); text-decoration: underline; }
+        footer .copy { font-size: 13px; color: var(--text-muted); }
+        footer .copy a { color: var(--text-secondary); margin: 0 6px; }
+        footer .copy a:hover { color: var(--orange-bright); }
+        footer .langs { margin-top: 16px; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 12px; font-size: 13px; color: var(--text-muted); }
+        footer .langs a { color: var(--text-secondary); transition: 0.2s; }
+        footer .langs a:hover { color: var(--orange-bright); }
+        footer .langs .sep { opacity: 0.3; }
+        footer .owner-link { display: inline-block; margin-top: 18px; font-size: 11px; color: var(--text-muted); opacity: 0.55; cursor: pointer; }
+        footer .owner-link:hover { opacity: 0.9; color: var(--orange-bright); }
 
         /* ── RESPONSIVE ── */
         @media (max-width: 768px) {
@@ -755,6 +320,7 @@
             .modal { padding: 28px 18px 24px; }
             .base-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
             .logo-text { font-size: 20px; }
+            .filter-bar { flex-direction: column; align-items: stretch; }
         }
         @media (max-width: 480px) {
             .base-grid { grid-template-columns: 1fr 1fr; }
@@ -781,6 +347,7 @@
         </div>
         <div class="header-actions">
             <span class="header-badge">🔥 TH18 Vault</span>
+            <span class="admin-badge" id="adminBadge">● <span id="adminBadgeLabel">Owner mode</span><button id="signOutBtn" type="button">Sign out</button></span>
         </div>
     </header>
 
@@ -804,32 +371,67 @@
             </div>
             <div class="hero-desc">
                 Explore the best TH18 base designs — anti-3-star, war-tested, and trophy-pushing layouts.
-                Add and manage your own approved layouts. Want to upload your base? Come to clan: #2CY29YPC9 & send your base - if we find good it will be added here.
+                Want your base featured? Send it to clan #2CY29YPC9 — if it's good, we'll add it here.
             </div>
             <div class="hero-actions">
-                <button class="btn btn-primary" id="addBaseBtn">➕ Add Base</button>
+                <button class="btn btn-primary admin-only" id="addBaseBtn">➕ Add Base</button>
+                <button class="btn btn-secondary owner-only" id="manageContributorsBtn">👥 Manage Contributors</button>
                 <button class="btn btn-secondary" id="refreshHeroBtn">⟳ Refresh</button>
                 <span style="font-size:13px;color:var(--text-muted);margin-left:4px;" id="baseCountLabel">0 bases</span>
             </div>
         </section>
 
+        <!-- ═══ SEARCH & FILTER ═══ -->
+        <div class="filter-bar">
+            <div class="search-input-wrap">
+                <span class="icon">🔍</span>
+                <input type="text" id="searchInput" placeholder="Search bases by name or description...">
+            </div>
+            <div class="chip-row" id="categoryChips">
+                <button class="chip active" data-category="All" type="button">All</button>
+                <button class="chip" data-category="War" type="button">War</button>
+                <button class="chip" data-category="CWL" type="button">CWL</button>
+                <button class="chip" data-category="Legend League" type="button">Legend League</button>
+                <button class="chip" data-category="Farming" type="button">Farming</button>
+                <button class="chip" data-category="Hybrid" type="button">Hybrid</button>
+                <button class="chip" data-category="Trophy" type="button">Trophy</button>
+            </div>
+        </div>
+
         <!-- ═══ TH18 BASE GRID ═══ -->
         <div id="th18Grid" class="base-grid">
             <div class="empty-state">
                 <div class="big-icon">📐</div>
-                <p style="font-size:16px;font-weight:600;color:var(--text-secondary);">No TH18 bases yet</p>
-                <p style="font-size:14px;color:var(--text-muted);">Use “Add Base” to publish your next TH18 layout.</p>
+                <p style="font-size:16px;font-weight:600;color:var(--text-secondary);">Loading bases…</p>
             </div>
         </div>
 
     </div>
 
-    <!-- ─── MODAL: ADD BASE ─── -->
+    <!-- ─── MODAL: OWNER / CONTRIBUTOR SIGN-IN (hidden by default) ─── -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal" style="max-width:420px;">
+            <button class="modal-close" id="closeLoginBtn">✕</button>
+            <h2>🔐 Sign-in</h2>
+            <p class="modal-hint">Owner and invited-contributor tokens both work here. This unlocks base publishing for this browser tab only — nothing is stored after you close the tab.</p>
+
+            <label for="loginToken">Access token</label>
+            <input type="password" id="loginToken" autocomplete="current-password" placeholder="Enter your private token">
+            <div class="field-error" id="loginError">Incorrect token. Please try again.</div>
+
+            <div class="btn-row">
+                <button class="btn btn-primary" id="loginSubmitBtn" style="flex:2;">Sign in</button>
+                <button class="btn btn-outline" id="loginCancelBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ─── MODAL: ADD BASE (owner or contributor) ─── -->
     <div class="modal-overlay" id="addModal">
         <div class="modal">
             <button class="modal-close" id="closeModalBtn">✕</button>
             <h2>📤 Add New TH18 Base</h2>
-            <p>Submit an image and an in-game link. Owner uploads are published immediately.</p>
+            <p class="modal-hint">Submit an image and an in-game link. Published immediately.</p>
 
             <label for="baseName">Base Name</label>
             <input type="text" id="baseName" placeholder="e.g. Anti-3-Star TH18 #1" value="TH18 War Base">
@@ -847,9 +449,6 @@
                 <option value="Hybrid">Hybrid</option>
                 <option value="Trophy">Trophy</option>
             </select>
-
-            <label for="adminToken">Owner access token</label>
-            <input type="password" id="adminToken" autocomplete="current-password" required placeholder="Enter your private upload token">
 
             <label for="baseLink">Clash of Clans in-game link</label>
             <input type="url" id="baseLink" placeholder="https://link.clashofclans.com/...">
@@ -876,6 +475,35 @@
         </div>
     </div>
 
+    <!-- ─── MODAL: MANAGE CONTRIBUTORS (owner only) ─── -->
+    <div class="modal-overlay" id="contributorsModal">
+        <div class="modal" style="max-width:520px;">
+            <button class="modal-close" id="closeContributorsBtn">✕</button>
+            <h2>👥 Manage Contributors</h2>
+            <p class="modal-hint">Invite people to add bases without giving them your owner token. Revoking someone takes effect immediately.</p>
+
+            <label for="newContributorName">Contributor name</label>
+            <input type="text" id="newContributorName" placeholder="e.g. Alex">
+            <div class="btn-row">
+                <button class="btn btn-primary" id="generateInviteBtn" style="flex:1;">✨ Generate Invite</button>
+            </div>
+
+            <div class="invite-result" id="inviteResult">
+                <div style="font-size:13px;font-weight:700;color:var(--green);">Invite created — copy this now</div>
+                <div class="token-box">
+                    <input type="text" id="inviteTokenBox" readonly>
+                    <button class="btn btn-sm btn-sm-copy" id="copyInviteBtn" type="button" style="border-radius:20px;padding:8px 16px;">📋 Copy</button>
+                </div>
+                <div class="warn">Send this to them privately. It will not be shown again — if it's lost, revoke this invite and generate a new one.</div>
+            </div>
+
+            <label style="margin-top:22px;">Current contributors</label>
+            <div id="contributorsList">
+                <div class="meta" style="padding:10px 0;">Loading…</div>
+            </div>
+        </div>
+    </div>
+
     <!-- ─── IMAGE LIGHTBOX ─── -->
     <div class="image-lightbox" id="imageLightbox" role="dialog" aria-label="Enlarged base image" aria-modal="true">
         <button class="image-lightbox-close" id="imageLightboxClose" aria-label="Close enlarged image">✕</button>
@@ -892,7 +520,7 @@
             For more information see <a href="https://supercell.com/en/fan-content-policy/en/" target="_blank" rel="nofollow noopener">Supercell's Fan Content Policy</a>.
         </div>
         <div class="copy">
-            Clash Of Clans Layouts © 2026 |             <a href="mailto:contact@clashofclans-layouts.com">Contact</a> | <a href="#privacy">Privacy</a>
+            Clash Of Clans Layouts © 2026 | <a href="mailto:contact@clashofclans-layouts.com">Contact</a> | <a href="#privacy">Privacy</a>
         </div>
         <div class="langs">
             <span style="font-weight:700;">English</span>
@@ -907,45 +535,60 @@
             <span class="sep">|</span> <span>العربية</span>
         </div>
         <div id="privacy" style="max-width:700px;margin:18px auto 0;font-size:12px;color:var(--text-muted);line-height:1.5;">
-            Only the site owner can submit bases. Owner submissions are published immediately after validation.
+            Only the owner and invited contributors can publish bases. Everyone else can search, filter, and copy or open base links.
         </div>
+        <span class="owner-link" id="ownerLoginTrigger">Site owner or contributor? Sign in</span>
     </footer>
 
     <script>
         // ────────────────────────────────────────────────
-        //  CONFIG (REQUIRED: Replace with your own keys)
+        //  CONFIG (REQUIRED: Replace with your own deployed web-app URL)
         // ────────────────────────────────────────────────
-
-        // 🔗 Deployed Apps Script web-app URL (do not put private keys here)
-        const API_URL = 'https://script.google.com/macros/s/AKfycbz0iJj290WmWVhGPoggJ3tEDT4D6yIw3QBO3BxTG5E/dev';
+        const API_URL = 'https://script.google.com/macros/s/AKfycbxMnT-6clHJQbUCcFawxj_zeu-fLwmu42rkqTJCj5L3Dk441urkGcch3qS39GF7JXIlxg/exec';
 
         // ────────────────────────────────────────────────
         //  STATE
+        //  The signed-in token is held only in memory for this tab's
+        //  lifetime. It is never written to localStorage/sessionStorage,
+        //  so a page refresh always starts back in public (read-only) mode.
         // ────────────────────────────────────────────────
-
         let bases = [];
+        let isAdmin = false;      // true for owner OR contributor
+        let currentRole = null;   // 'owner' | 'contributor'
+        let currentName = null;   // contributor's display name, if applicable
+        let ownerToken = null;    // the signed-in token, whichever role it belongs to
+        let activeCategory = 'All';
+        let searchTerm = '';
 
         // ────────────────────────────────────────────────
         //  DOM REFS
         // ────────────────────────────────────────────────
-
         const grid = document.getElementById('th18Grid');
         const heroThumbImg = document.getElementById('heroThumbImg');
         const heroPlaceholder = document.getElementById('heroPlaceholder');
         const baseCountLabel = document.getElementById('baseCountLabel');
         const addBaseBtn = document.getElementById('addBaseBtn');
+        const manageContributorsBtn = document.getElementById('manageContributorsBtn');
+        const signOutBtn = document.getElementById('signOutBtn');
+        const adminBadgeLabel = document.getElementById('adminBadgeLabel');
+        const ownerLoginTrigger = document.getElementById('ownerLoginTrigger');
+
+        const loginModal = document.getElementById('loginModal');
+        const closeLoginBtn = document.getElementById('closeLoginBtn');
+        const loginCancelBtn = document.getElementById('loginCancelBtn');
+        const loginSubmitBtn = document.getElementById('loginSubmitBtn');
+        const loginToken = document.getElementById('loginToken');
+        const loginError = document.getElementById('loginError');
 
         const modal = document.getElementById('addModal');
         const closeModalBtn = document.getElementById('closeModalBtn');
         const cancelModalBtn = document.getElementById('cancelModalBtn');
-        const openAddBaseBtn = document.getElementById('addBaseBtn');
         const submitBaseBtn = document.getElementById('submitBaseBtn');
         const refreshHeroBtn = document.getElementById('refreshHeroBtn');
 
         const baseName = document.getElementById('baseName');
         const baseDesc = document.getElementById('baseDesc');
         const baseCategory = document.getElementById('baseCategory');
-        const adminToken = document.getElementById('adminToken');
         const baseLink = document.getElementById('baseLink');
         const fileInput = document.getElementById('fileInput');
         const fileZone = document.getElementById('fileZone');
@@ -953,6 +596,18 @@
         const previewImg = document.getElementById('previewImg');
         const progressBar = document.getElementById('progressBar');
         const progressFill = document.getElementById('progressFill');
+
+        const contributorsModal = document.getElementById('contributorsModal');
+        const closeContributorsBtn = document.getElementById('closeContributorsBtn');
+        const newContributorName = document.getElementById('newContributorName');
+        const generateInviteBtn = document.getElementById('generateInviteBtn');
+        const inviteResult = document.getElementById('inviteResult');
+        const inviteTokenBox = document.getElementById('inviteTokenBox');
+        const copyInviteBtn = document.getElementById('copyInviteBtn');
+        const contributorsList = document.getElementById('contributorsList');
+
+        const searchInput = document.getElementById('searchInput');
+        const categoryChips = document.getElementById('categoryChips');
 
         const toast = document.getElementById('toast');
         const imageLightbox = document.getElementById('imageLightbox');
@@ -969,7 +624,6 @@
         // ────────────────────────────────────────────────
         //  TOAST
         // ────────────────────────────────────────────────
-
         function showToast(msg, isError = false) {
             if (toastTimer) clearTimeout(toastTimer);
             toast.textContent = msg;
@@ -979,16 +633,9 @@
         }
 
         // ────────────────────────────────────────────────
-        //  STORAGE
+        //  DATA LOADING (public — no token required)
         // ────────────────────────────────────────────────
-
         async function loadBases() {
-            if (API_URL === 'YOUR_APPS_SCRIPT_WEB_APP_URL') {
-                bases = [];
-                render();
-                showToast('⚠️ Configure the Apps Script API URL to load bases.', true);
-                return;
-            }
             try {
                 const response = await fetch(`${API_URL}?action=list`, { headers: { Accept: 'application/json' } });
                 if (!response.ok) throw new Error(`API returned ${response.status}`);
@@ -1005,32 +652,58 @@
         }
 
         // ────────────────────────────────────────────────
+        //  FILTERING
+        // ────────────────────────────────────────────────
+        function getFilteredBases() {
+            const term = searchTerm.trim().toLowerCase();
+            return bases.filter(b => {
+                const matchesCategory = activeCategory === 'All' || (b.category || '') === activeCategory;
+                const matchesSearch = !term ||
+                    (b.name || '').toLowerCase().includes(term) ||
+                    (b.desc || '').toLowerCase().includes(term);
+                return matchesCategory && matchesSearch;
+            });
+        }
+
+        searchInput.addEventListener('input', (e) => {
+            searchTerm = e.target.value;
+            renderGrid();
+        });
+
+        categoryChips.addEventListener('click', (e) => {
+            const chip = e.target.closest('.chip');
+            if (!chip) return;
+            activeCategory = chip.dataset.category;
+            categoryChips.querySelectorAll('.chip').forEach(c => c.classList.toggle('active', c === chip));
+            renderGrid();
+        });
+
+        // ────────────────────────────────────────────────
         //  RENDER
         // ────────────────────────────────────────────────
-
         function render() {
             renderGrid();
             renderHero();
         }
 
         function renderGrid() {
-            if (!bases.length) {
+            const filtered = getFilteredBases().sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
+
+            if (!filtered.length) {
                 grid.innerHTML = `
                     <div class="empty-state">
                         <div class="big-icon">📐</div>
-                        <p style="font-size:16px;font-weight:600;color:var(--text-secondary);">Vault is empty</p>
-                        <p style="font-size:14px;color:var(--text-muted);">Use “Add Base” to publish your next TH18 layout.</p>
+                        <p style="font-size:16px;font-weight:600;color:var(--text-secondary);">${bases.length ? 'No bases match your search' : 'Vault is empty'}</p>
+                        <p style="font-size:14px;color:var(--text-muted);">${bases.length ? 'Try a different keyword or category.' : 'Check back soon for new TH18 layouts.'}</p>
                     </div>
                 `;
                 return;
             }
 
-            const sorted = [...bases].sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
-
-            grid.innerHTML = sorted.map(b => `
-                <div class="base-card" data-id="${b.id}">
+            grid.innerHTML = filtered.map(b => `
+                <div class="base-card" data-id="${escHtml(b.id || '')}">
                     <div class="card-img">
-                        ${b.image ? `                        <img class="zoomable-image" src="${escHtml(b.image)}" alt="${escHtml(b.name || 'TH18 base')}" loading="lazy">` : `<span class="no-img">🖼️ no image</span>`}
+                        ${b.image ? `<img class="zoomable-image" src="${escHtml(b.image)}" alt="${escHtml(b.name || 'TH18 base')}" loading="lazy">` : `<span class="no-img">🖼️ no image</span>`}
                     </div>
                     <div class="card-body">
                         <div class="card-title">${escHtml(b.name || 'Unnamed Base')}</div>
@@ -1040,7 +713,8 @@
                         </div>
                         <p style="font-size:12px;color:var(--text-muted);margin-top:6px;">${b.desc ? escHtml(b.desc).slice(0, 80) : 'Approved TH18 layout'}</p>
                         <div class="card-actions">
-                            ${b.link ? `<a class="btn-sm btn-sm-copy" href="${escHtml(b.link)}" target="_blank" rel="noopener noreferrer">↗ Open Link</a>` : ''}
+                            <button class="btn-sm btn-sm-copy" type="button" data-link="${escHtml(b.link || '')}" ${b.link ? '' : 'disabled'}>📋 Copy</button>
+                            <a class="btn-sm btn-sm-open" href="${escHtml(b.link || '#')}" target="_blank" rel="noopener noreferrer" ${b.link ? '' : 'aria-disabled="true" tabindex="-1" style="pointer-events:none;opacity:.4;"'}>↗ Open</a>
                         </div>
                     </div>
                 </div>
@@ -1049,6 +723,32 @@
             grid.querySelectorAll('.zoomable-image').forEach(image => {
                 image.addEventListener('click', () => openImageLightbox(image.src, image.alt));
             });
+            grid.querySelectorAll('.btn-sm-copy').forEach(btn => {
+                btn.addEventListener('click', () => copyLink(btn.dataset.link));
+            });
+        }
+
+        async function copyLink(link) {
+            if (!link) return;
+            try {
+                await navigator.clipboard.writeText(link);
+                showToast('✅ Link copied!');
+            } catch (err) {
+                const ta = document.createElement('textarea');
+                ta.value = link;
+                ta.style.position = 'fixed';
+                ta.style.opacity = '0';
+                document.body.appendChild(ta);
+                ta.select();
+                try {
+                    document.execCommand('copy');
+                    showToast('✅ Link copied!');
+                } catch (_) {
+                    showToast('⚠️ Could not copy link', true);
+                } finally {
+                    document.body.removeChild(ta);
+                }
+            }
         }
 
         function openImageLightbox(src, alt) {
@@ -1057,21 +757,15 @@
             imageLightbox.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
-
         function closeImageLightbox() {
             imageLightbox.classList.remove('active');
             imageLightboxImg.src = '';
             document.body.style.overflow = '';
         }
-
-        imageLightbox.addEventListener('click', event => {
-            if (event.target === imageLightbox) closeImageLightbox();
-        });
+        imageLightbox.addEventListener('click', event => { if (event.target === imageLightbox) closeImageLightbox(); });
         imageLightboxClose.addEventListener('click', closeImageLightbox);
         document.addEventListener('keydown', event => {
-            if (event.key === 'Escape' && imageLightbox.classList.contains('active')) {
-                closeImageLightbox();
-            }
+            if (event.key === 'Escape' && imageLightbox.classList.contains('active')) closeImageLightbox();
         });
 
         function renderHero() {
@@ -1094,14 +788,12 @@
         // ────────────────────────────────────────────────
         //  HELPERS
         // ────────────────────────────────────────────────
-
         function escHtml(str) {
             if (!str) return '';
             const div = document.createElement('div');
             div.textContent = str;
             return div.innerHTML;
         }
-
         function formatDate(dateStr) {
             if (!dateStr) return '—';
             try {
@@ -1109,7 +801,6 @@
                 return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
             } catch (_) { return '—'; }
         }
-
         function fileToDataUrl(file) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
@@ -1118,19 +809,90 @@
                 reader.readAsDataURL(file);
             });
         }
+        async function callApi_(payload) {
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: JSON.stringify(payload)
+            });
+            if (!response.ok) throw new Error(`API returned ${response.status}`);
+            return response.json();
+        }
 
         // ────────────────────────────────────────────────
-        //  MODAL LOGIC
+        //  SIGN-IN (owner or contributor — role decided server-side)
         // ────────────────────────────────────────────────
+        function openLoginModal() {
+            loginModal.classList.add('active');
+            loginToken.value = '';
+            loginError.style.display = 'none';
+            document.body.style.overflow = 'hidden';
+            setTimeout(() => loginToken.focus(), 50);
+        }
+        function closeLoginModal() {
+            loginModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
 
+        ownerLoginTrigger.addEventListener('click', openLoginModal);
+        closeLoginBtn.addEventListener('click', closeLoginModal);
+        loginCancelBtn.addEventListener('click', closeLoginModal);
+        loginModal.addEventListener('click', (e) => { if (e.target === loginModal) closeLoginModal(); });
+        loginToken.addEventListener('keydown', (e) => { if (e.key === 'Enter') loginSubmitBtn.click(); });
+
+        loginSubmitBtn.addEventListener('click', async () => {
+            const token = loginToken.value.trim();
+            if (!token) return;
+
+            loginSubmitBtn.disabled = true;
+            loginSubmitBtn.textContent = 'Checking…';
+            loginError.style.display = 'none';
+
+            try {
+                const result = await callApi_({ action: 'verifyToken', token });
+                if (result.success) {
+                    isAdmin = true;
+                    currentRole = result.role;
+                    currentName = result.name || null;
+                    ownerToken = token;
+                    document.body.classList.add('is-admin');
+                    document.body.classList.toggle('is-owner', currentRole === 'owner');
+                    adminBadgeLabel.textContent = currentRole === 'owner' ? 'Owner mode' : `Contributor: ${currentName}`;
+                    closeLoginModal();
+                    showToast(currentRole === 'owner' ? '✅ Signed in as owner' : `✅ Signed in as ${currentName}`);
+                } else {
+                    loginError.textContent = 'Incorrect token. Please try again.';
+                    loginError.style.display = 'block';
+                }
+            } catch (err) {
+                loginError.textContent = 'Could not reach the server. Please try again.';
+                loginError.style.display = 'block';
+            } finally {
+                loginSubmitBtn.disabled = false;
+                loginSubmitBtn.textContent = 'Sign in';
+            }
+        });
+
+        signOutBtn.addEventListener('click', () => {
+            isAdmin = false;
+            currentRole = null;
+            currentName = null;
+            ownerToken = null;
+            document.body.classList.remove('is-admin', 'is-owner');
+            showToast('Signed out');
+        });
+
+        // ────────────────────────────────────────────────
+        //  ADD BASE MODAL (owner or contributor)
+        // ────────────────────────────────────────────────
         let selectedFile = null;
 
-        function openModal() {
+        function openAddModal() {
+            if (!isAdmin) { openLoginModal(); return; }
             modal.classList.add('active');
             baseName.value = 'TH18 War Base';
             baseDesc.value = '';
             baseCategory.value = '';
-            adminToken.value = '';
             baseLink.value = '';
             selectedFile = null;
             previewWrap.classList.remove('active');
@@ -1138,7 +900,6 @@
             fileInput.value = '';
             document.body.style.overflow = 'hidden';
         }
-
         function closeModal() {
             modal.classList.remove('active');
             document.body.style.overflow = '';
@@ -1146,35 +907,22 @@
             progressFill.style.width = '0%';
         }
 
-        addBaseBtn.addEventListener('click', openModal);
+        addBaseBtn.addEventListener('click', openAddModal);
         closeModalBtn.addEventListener('click', closeModal);
         cancelModalBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
 
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) closeModal();
-        });
-
-        // File selection
         fileInput.addEventListener('change', (e) => {
             const file = e.target.files[0];
             if (file) {
                 selectedFile = file;
                 const reader = new FileReader();
-                reader.onload = (ev) => {
-                    previewImg.src = ev.target.result;
-                    previewWrap.classList.add('active');
-                };
+                reader.onload = (ev) => { previewImg.src = ev.target.result; previewWrap.classList.add('active'); };
                 reader.readAsDataURL(file);
             }
         });
-
-        fileZone.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            fileZone.style.borderColor = 'var(--orange-bright)';
-        });
-        fileZone.addEventListener('dragleave', () => {
-            fileZone.style.borderColor = 'rgba(230,122,46,0.25)';
-        });
+        fileZone.addEventListener('dragover', (e) => { e.preventDefault(); fileZone.style.borderColor = 'var(--orange-bright)'; });
+        fileZone.addEventListener('dragleave', () => { fileZone.style.borderColor = 'rgba(230,122,46,0.25)'; });
         fileZone.addEventListener('drop', (e) => {
             e.preventDefault();
             fileZone.style.borderColor = 'rgba(230,122,46,0.25)';
@@ -1182,65 +930,35 @@
             if (file && file.type.startsWith('image/')) {
                 selectedFile = file;
                 const reader = new FileReader();
-                reader.onload = (ev) => {
-                    previewImg.src = ev.target.result;
-                    previewWrap.classList.add('active');
-                };
+                reader.onload = (ev) => { previewImg.src = ev.target.result; previewWrap.classList.add('active'); };
                 reader.readAsDataURL(file);
                 fileInput.files = e.dataTransfer.files;
             }
         });
 
-        // Submit
         submitBaseBtn.addEventListener('click', async () => {
+            if (!isAdmin || !ownerToken) { showToast('⚠️ Please sign in first', true); return; }
+
             const name = baseName.value.trim() || 'Unnamed Base';
             const desc = baseDesc.value.trim();
 
-            if (!selectedFile) {
-                showToast('⚠️ Please select an image', true);
-                return;
-            }
-
-            if (!/^https:\/\/link\.clashofclans\.com\//i.test(baseLink.value.trim())) {
-                showToast('⚠️ Enter a valid Clash of Clans in-game link', true);
-                return;
-            }
-
-            if (!baseCategory.value) {
-                showToast('⚠️ Select a category', true);
-                return;
-            }
-
-            if (!adminToken.value.trim()) {
-                showToast('⚠️ Enter the owner access token', true);
-                return;
-            }
-
-            if (API_URL === 'YOUR_APPS_SCRIPT_WEB_APP_URL') {
-                showToast('⚠️ Configure the Apps Script API URL first', true);
-                return;
-            }
+            if (!selectedFile) { showToast('⚠️ Please select an image', true); return; }
+            if (!/^https:\/\/link\.clashofclans\.com\//i.test(baseLink.value.trim())) { showToast('⚠️ Enter a valid Clash of Clans in-game link', true); return; }
+            if (!baseCategory.value) { showToast('⚠️ Select a category', true); return; }
 
             submitBaseBtn.disabled = true;
             submitBaseBtn.textContent = '⏳ Uploading...';
 
             try {
                 const image = await fileToDataUrl(selectedFile);
-                const response = await fetch(API_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                    body: JSON.stringify({
-                        action: 'submit',
-                        adminToken: adminToken.value.trim(),
-                        name,
-                        desc,
-                        category: baseCategory.value,
-                        link: baseLink.value.trim(),
-                        image
-                    })
+                const result = await callApi_({
+                    action: 'submit',
+                    token: ownerToken,
+                    name, desc,
+                    category: baseCategory.value,
+                    link: baseLink.value.trim(),
+                    image
                 });
-                if (!response.ok) throw new Error(`API returned ${response.status}`);
-                const result = await response.json();
                 if (!result.success) throw new Error(result.message || 'Submission was rejected');
                 closeModal();
                 await loadBases();
@@ -1254,24 +972,100 @@
         });
 
         // ────────────────────────────────────────────────
-        //  REFRESH HERO
+        //  MANAGE CONTRIBUTORS (owner only)
         // ────────────────────────────────────────────────
+        function openContributorsModal() {
+            if (currentRole !== 'owner') { showToast('⚠️ Owner sign-in required', true); return; }
+            contributorsModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            newContributorName.value = '';
+            inviteResult.classList.remove('active');
+            loadContributors();
+        }
+        function closeContributorsModal() {
+            contributorsModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        manageContributorsBtn.addEventListener('click', openContributorsModal);
+        closeContributorsBtn.addEventListener('click', closeContributorsModal);
+        contributorsModal.addEventListener('click', (e) => { if (e.target === contributorsModal) closeContributorsModal(); });
 
-        refreshHeroBtn.addEventListener('click', () => {
-            renderHero();
-            showToast('⟳ Hero refreshed');
+        async function loadContributors() {
+            contributorsList.innerHTML = `<div class="meta" style="padding:10px 0;">Loading…</div>`;
+            try {
+                const result = await callApi_({ action: 'listContributors', token: ownerToken });
+                if (!result.success) throw new Error(result.message || 'Could not load contributors');
+                renderContributors(result.contributors || []);
+            } catch (err) {
+                contributorsList.innerHTML = `<div class="meta" style="padding:10px 0;">⚠️ ${escHtml(err.message)}</div>`;
+            }
+        }
+
+        function renderContributors(contributors) {
+            if (!contributors.length) {
+                contributorsList.innerHTML = `<div class="meta" style="padding:10px 0;">No contributors invited yet.</div>`;
+                return;
+            }
+            contributorsList.innerHTML = contributors.map(c => `
+                <div class="contributor-row ${c.active ? '' : 'inactive'}" data-id="${escHtml(c.id)}">
+                    <div>
+                        <div class="name">${escHtml(c.name)}</div>
+                        <div class="meta">${c.active ? 'Active' : 'Revoked'} · added ${formatDate(c.dateAdded)}</div>
+                    </div>
+                    ${c.active ? `<button class="revoke-btn" data-id="${escHtml(c.id)}">Revoke</button>` : ''}
+                </div>
+            `).join('');
+
+            contributorsList.querySelectorAll('.revoke-btn').forEach(btn => {
+                btn.addEventListener('click', () => revokeContributor(btn.dataset.id));
+            });
+        }
+
+        async function revokeContributor(id) {
+            try {
+                const result = await callApi_({ action: 'revokeContributor', token: ownerToken, id });
+                if (!result.success) throw new Error(result.message || 'Could not revoke contributor');
+                showToast('✅ Contributor revoked');
+                loadContributors();
+            } catch (err) {
+                showToast('❌ ' + err.message, true);
+            }
+        }
+
+        generateInviteBtn.addEventListener('click', async () => {
+            const name = newContributorName.value.trim();
+            if (!name) { showToast('⚠️ Enter a name first', true); return; }
+
+            generateInviteBtn.disabled = true;
+            generateInviteBtn.textContent = 'Generating…';
+
+            try {
+                const result = await callApi_({ action: 'addContributor', token: ownerToken, name });
+                if (!result.success) throw new Error(result.message || 'Could not create invite');
+                inviteTokenBox.value = result.token;
+                inviteResult.classList.add('active');
+                newContributorName.value = '';
+                loadContributors();
+            } catch (err) {
+                showToast('❌ ' + err.message, true);
+            } finally {
+                generateInviteBtn.disabled = false;
+                generateInviteBtn.textContent = '✨ Generate Invite';
+            }
         });
 
+        copyInviteBtn.addEventListener('click', () => copyLink(inviteTokenBox.value));
+
         // ────────────────────────────────────────────────
-        //  INIT
+        //  REFRESH & INIT
         // ────────────────────────────────────────────────
+        refreshHeroBtn.addEventListener('click', async () => {
+            await loadBases();
+            showToast('⟳ Refreshed');
+        });
 
         loadBases();
         render();
-
-        console.log('🔥 TH18 Base Vault ready!');
-        console.log(`📦 ${bases.length} bases loaded.`);
-        console.log('ℹ️  Owner-only upload mode is enabled.');
     </script>
 </body>
 </html>
