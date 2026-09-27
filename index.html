@@ -299,12 +299,23 @@
         footer .copy { font-size: 13px; color: var(--text-muted); }
         footer .copy a { color: var(--text-secondary); margin: 0 6px; }
         footer .copy a:hover { color: var(--orange-bright); }
-        footer .langs { margin-top: 16px; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 12px; font-size: 13px; color: var(--text-muted); }
-        footer .langs a { color: var(--text-secondary); transition: 0.2s; }
-        footer .langs a:hover { color: var(--orange-bright); }
+        footer .langs { margin-top: 16px; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 6px 12px; font-size: 13px; color: var(--text-muted); }
+        footer .langs .lang-btn {
+            background: none; border: none; padding: 2px 0; margin: 0;
+            color: var(--text-secondary); font: inherit; font-size: 13px;
+            cursor: pointer; transition: 0.2s;
+        }
+        footer .langs .lang-btn:hover { color: var(--orange-bright); }
+        footer .langs .lang-btn.active { color: var(--orange-bright); font-weight: 700; }
         footer .langs .sep { opacity: 0.3; }
         footer .owner-link { display: inline-block; margin-top: 18px; font-size: 11px; color: var(--text-muted); opacity: 0.55; cursor: pointer; }
         footer .owner-link:hover { opacity: 0.9; color: var(--orange-bright); }
+
+        /* ── RTL SUPPORT (Arabic) ── */
+        html[dir="rtl"] body { direction: rtl; }
+        html[dir="rtl"] .chip-row,
+        html[dir="rtl"] .header-actions,
+        html[dir="rtl"] .hero-actions { flex-direction: row-reverse; }
 
         /* ── RESPONSIVE ── */
         @media (max-width: 768px) {
@@ -334,8 +345,8 @@
     <div class="welcome-overlay" id="welcomeOverlay" role="status" aria-label="Welcome">
         <div class="welcome-content">
             <img src="welcomeImage.PNG" alt="Welcome to ClashLayouts" onerror="this.style.display='none'">
-            <h1>We make you legend.</h1>
-            <span class="welcome-skip">Preparing your TH18 base vault...</span>
+            <h1 data-i18n="welcome.title">We make you legend.</h1>
+            <span class="welcome-skip" data-i18n="welcome.hint">Preparing your TH18 base vault...</span>
         </div>
     </div>
 
@@ -346,8 +357,8 @@
             <div class="logo-text">Clash<span>Layouts</span></div>
         </div>
         <div class="header-actions">
-            <span class="header-badge">🔥 TH18 Vault</span>
-            <span class="admin-badge" id="adminBadge">● <span id="adminBadgeLabel">Owner mode</span><button id="signOutBtn" type="button">Sign out</button></span>
+            <span class="header-badge" data-i18n="badge.th18">🔥 TH18 Vault</span>
+            <span class="admin-badge" id="adminBadge">● <span id="adminBadgeLabel" data-i18n="admin.ownerMode">Owner mode</span><button id="signOutBtn" type="button" data-i18n="admin.signOut">Sign out</button></span>
         </div>
     </header>
 
@@ -362,21 +373,21 @@
                     <span class="placeholder-icon" id="heroPlaceholder">🏰</span>
                 </div>
                 <div class="hero-title-group">
-                    <h1>🏆 TH18 Bases <span style="font-weight:400;background:none;-webkit-text-fill-color:var(--text-secondary);">— Community Vault</span></h1>
+                    <h1 data-i18n-html="hero.title">🏆 TH18 Bases <span style="font-weight:400;background:none;-webkit-text-fill-color:var(--text-secondary);">— Community Vault</span></h1>
                     <div class="sub">
-                        <span>⚡ The latest &amp; most effective Town Hall 18 layouts</span>
+                        <span data-i18n="hero.sub">⚡ The latest &amp; most effective Town Hall 18 layouts</span>
                         <span class="tag">2026</span>
                     </div>
                 </div>
             </div>
-            <div class="hero-desc">
+            <div class="hero-desc" data-i18n="hero.desc">
                 Explore the best TH18 base designs — anti-3-star, war-tested, and trophy-pushing layouts.
                 Want your base featured? Send it to clan #2CY29YPC9 — if it's good, we'll add it here.
             </div>
             <div class="hero-actions">
-                <button class="btn btn-primary admin-only" id="addBaseBtn">➕ Add Base</button>
-                <button class="btn btn-secondary owner-only" id="manageContributorsBtn">👥 Manage Contributors</button>
-                <button class="btn btn-secondary" id="refreshHeroBtn">⟳ Refresh</button>
+                <button class="btn btn-primary admin-only" id="addBaseBtn" data-i18n="btn.addBase">➕ Add Base</button>
+                <button class="btn btn-secondary owner-only" id="manageContributorsBtn" data-i18n="btn.manageContributors">👥 Manage Contributors</button>
+                <button class="btn btn-secondary" id="refreshHeroBtn" data-i18n="btn.refresh">⟳ Refresh</button>
                 <span style="font-size:13px;color:var(--text-muted);margin-left:4px;" id="baseCountLabel">0 bases</span>
             </div>
         </section>
@@ -385,16 +396,16 @@
         <div class="filter-bar">
             <div class="search-input-wrap">
                 <span class="icon">🔍</span>
-                <input type="text" id="searchInput" placeholder="Search bases by name or description...">
+                <input type="text" id="searchInput" data-i18n-ph="search.ph" placeholder="Search bases by name or description...">
             </div>
             <div class="chip-row" id="categoryChips">
-                <button class="chip active" data-category="All" type="button">All</button>
-                <button class="chip" data-category="War" type="button">War</button>
-                <button class="chip" data-category="CWL" type="button">CWL</button>
-                <button class="chip" data-category="Legend League" type="button">Legend League</button>
-                <button class="chip" data-category="Farming" type="button">Farming</button>
-                <button class="chip" data-category="Hybrid" type="button">Hybrid</button>
-                <button class="chip" data-category="Trophy" type="button">Trophy</button>
+                <button class="chip active" data-category="All" type="button" data-i18n="chip.all">All</button>
+                <button class="chip" data-category="War" type="button" data-i18n="chip.war">War</button>
+                <button class="chip" data-category="CWL" type="button" data-i18n="chip.cwl">CWL</button>
+                <button class="chip" data-category="Legend League" type="button" data-i18n="chip.legend">Legend League</button>
+                <button class="chip" data-category="Farming" type="button" data-i18n="chip.farming">Farming</button>
+                <button class="chip" data-category="Hybrid" type="button" data-i18n="chip.hybrid">Hybrid</button>
+                <button class="chip" data-category="Trophy" type="button" data-i18n="chip.trophy">Trophy</button>
             </div>
         </div>
 
@@ -515,29 +526,29 @@
 
     <!-- ─── FOOTER ─── -->
     <footer>
-        <div class="supercell">
+        <div class="supercell" data-i18n-html="footer.supercell">
             clashofclans-layouts.com is unofficial and is not endorsed by Supercell.
             For more information see <a href="https://supercell.com/en/fan-content-policy/en/" target="_blank" rel="nofollow noopener">Supercell's Fan Content Policy</a>.
         </div>
         <div class="copy">
             Clash Of Clans Layouts © 2026 | <a href="mailto:contact@clashofclans-layouts.com">Contact</a> | <a href="#privacy">Privacy</a>
         </div>
-        <div class="langs">
-            <span style="font-weight:700;">English</span>
-            <span class="sep">|</span> <span>Русский</span>
-            <span class="sep">|</span> <span>Deutsch</span>
-            <span class="sep">|</span> <span>Français</span>
-            <span class="sep">|</span> <span>Español</span>
-            <span class="sep">|</span> <span>Italiano</span>
-            <span class="sep">|</span> <span>Português</span>
-            <span class="sep">|</span> <span>Polski</span>
-            <span class="sep">|</span> <span>中文</span>
-            <span class="sep">|</span> <span>العربية</span>
+        <div class="langs" id="langSwitcher">
+            <button class="lang-btn active" data-lang="en" type="button">English</button>
+            <span class="sep">|</span> <button class="lang-btn" data-lang="ru" type="button">Русский</button>
+            <span class="sep">|</span> <button class="lang-btn" data-lang="de" type="button">Deutsch</button>
+            <span class="sep">|</span> <button class="lang-btn" data-lang="fr" type="button">Français</button>
+            <span class="sep">|</span> <button class="lang-btn" data-lang="es" type="button">Español</button>
+            <span class="sep">|</span> <button class="lang-btn" data-lang="it" type="button">Italiano</button>
+            <span class="sep">|</span> <button class="lang-btn" data-lang="pt" type="button">Português</button>
+            <span class="sep">|</span> <button class="lang-btn" data-lang="pl" type="button">Polski</button>
+            <span class="sep">|</span> <button class="lang-btn" data-lang="zh" type="button">中文</button>
+            <span class="sep">|</span> <button class="lang-btn" data-lang="ar" type="button">العربية</button>
         </div>
-        <div id="privacy" style="max-width:700px;margin:18px auto 0;font-size:12px;color:var(--text-muted);line-height:1.5;">
+        <div id="privacy" style="max-width:700px;margin:18px auto 0;font-size:12px;color:var(--text-muted);line-height:1.5;" data-i18n="footer.privacy">
             Only the owner and invited contributors can publish bases. Everyone else can search, filter, and copy or open base links.
         </div>
-        <span class="owner-link" id="ownerLoginTrigger">Site owner or contributor? Sign in</span>
+        <span class="owner-link" id="ownerLoginTrigger" data-i18n="footer.ownerLink">Site owner or contributor? Sign in</span>
     </footer>
 
     <script>
@@ -693,8 +704,8 @@
                 grid.innerHTML = `
                     <div class="empty-state">
                         <div class="big-icon">📐</div>
-                        <p style="font-size:16px;font-weight:600;color:var(--text-secondary);">${bases.length ? 'No bases match your search' : 'Vault is empty'}</p>
-                        <p style="font-size:14px;color:var(--text-muted);">${bases.length ? 'Try a different keyword or category.' : 'Check back soon for new TH18 layouts.'}</p>
+                        <p style="font-size:16px;font-weight:600;color:var(--text-secondary);">${bases.length ? t('grid.noMatch') : t('grid.emptyTitle')}</p>
+                        <p style="font-size:14px;color:var(--text-muted);">${bases.length ? t('grid.noMatchSub') : t('grid.emptySub')}</p>
                     </div>
                 `;
                 return;
@@ -703,18 +714,18 @@
             grid.innerHTML = filtered.map(b => `
                 <div class="base-card" data-id="${escHtml(b.id || '')}">
                     <div class="card-img">
-                        ${b.image ? `<img class="zoomable-image" src="${escHtml(b.image)}" alt="${escHtml(b.name || 'TH18 base')}" loading="lazy">` : `<span class="no-img">🖼️ no image</span>`}
+                        ${b.image ? `<img class="zoomable-image" src="${escHtml(b.image)}" alt="${escHtml(b.name || 'TH18 base')}" loading="lazy">` : `<span class="no-img">${t('card.noImage')}</span>`}
                     </div>
                     <div class="card-body">
-                        <div class="card-title">${escHtml(b.name || 'Unnamed Base')}</div>
+                        <div class="card-title">${escHtml(b.name || t('card.unnamed'))}</div>
                         <div class="card-meta">
                             <span>${escHtml(b.category || 'TH18')}</span>
                             <span class="date">${formatDate(b.date)}</span>
                         </div>
-                        <p style="font-size:12px;color:var(--text-muted);margin-top:6px;">${b.desc ? escHtml(b.desc).slice(0, 80) : 'Approved TH18 layout'}</p>
+                        <p style="font-size:12px;color:var(--text-muted);margin-top:6px;">${b.desc ? escHtml(b.desc).slice(0, 80) : t('card.defaultDesc')}</p>
                         <div class="card-actions">
-                            <button class="btn-sm btn-sm-copy" type="button" data-link="${escHtml(b.link || '')}" ${b.link ? '' : 'disabled'}>📋 Copy</button>
-                            <a class="btn-sm btn-sm-open" href="${escHtml(b.link || '#')}" target="_blank" rel="noopener noreferrer" ${b.link ? '' : 'aria-disabled="true" tabindex="-1" style="pointer-events:none;opacity:.4;"'}>↗ Open</a>
+                            <button class="btn-sm btn-sm-copy" type="button" data-link="${escHtml(b.link || '')}" ${b.link ? '' : 'disabled'}>${t('card.copy')}</button>
+                            <a class="btn-sm btn-sm-open" href="${escHtml(b.link || '#')}" target="_blank" rel="noopener noreferrer" ${b.link ? '' : 'aria-disabled="true" tabindex="-1" style="pointer-events:none;opacity:.4;"'}>${t('card.open')}</a>
                         </div>
                     </div>
                 </div>
@@ -732,7 +743,7 @@
             if (!link) return;
             try {
                 await navigator.clipboard.writeText(link);
-                showToast('✅ Link copied!');
+                showToast(t('toast.copied'));
             } catch (err) {
                 const ta = document.createElement('textarea');
                 ta.value = link;
@@ -742,9 +753,9 @@
                 ta.select();
                 try {
                     document.execCommand('copy');
-                    showToast('✅ Link copied!');
+                    showToast(t('toast.copied'));
                 } catch (_) {
-                    showToast('⚠️ Could not copy link', true);
+                    showToast(t('toast.copyFail'), true);
                 } finally {
                     document.body.removeChild(ta);
                 }
@@ -782,7 +793,7 @@
             }
 
             const count = bases.length;
-            baseCountLabel.textContent = `${count} base${count !== 1 ? 's' : ''}`;
+            baseCountLabel.textContent = t('count.bases', { n: count });
         }
 
         // ────────────────────────────────────────────────
@@ -798,7 +809,7 @@
             if (!dateStr) return '—';
             try {
                 const d = new Date(dateStr);
-                return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                return d.toLocaleDateString(currentLang || 'en', { month: 'short', day: 'numeric', year: 'numeric' });
             } catch (_) { return '—'; }
         }
         function fileToDataUrl(file) {
@@ -857,9 +868,9 @@
                     ownerToken = token;
                     document.body.classList.add('is-admin');
                     document.body.classList.toggle('is-owner', currentRole === 'owner');
-                    adminBadgeLabel.textContent = currentRole === 'owner' ? 'Owner mode' : `Contributor: ${currentName}`;
+                    adminBadgeLabel.textContent = currentRole === 'owner' ? t('admin.ownerMode') : `Contributor: ${currentName}`;
                     closeLoginModal();
-                    showToast(currentRole === 'owner' ? '✅ Signed in as owner' : `✅ Signed in as ${currentName}`);
+                    showToast(currentRole === 'owner' ? t('toast.signedOwner') : t('toast.signedContrib', { name: currentName }));
                 } else {
                     loginError.textContent = 'Incorrect token. Please try again.';
                     loginError.style.display = 'block';
@@ -879,7 +890,7 @@
             currentName = null;
             ownerToken = null;
             document.body.classList.remove('is-admin', 'is-owner');
-            showToast('Signed out');
+            showToast(t('toast.signedOut'));
         });
 
         // ────────────────────────────────────────────────
@@ -1061,8 +1072,480 @@
         // ────────────────────────────────────────────────
         refreshHeroBtn.addEventListener('click', async () => {
             await loadBases();
-            showToast('⟳ Refreshed');
+            showToast(t('toast.refreshed'));
         });
+
+        // ────────────────────────────────────────────────
+        //  LANGUAGE / i18n
+        // ────────────────────────────────────────────────
+        const I18N = {
+            en: {
+                "welcome.title": "We make you legend.",
+                "welcome.hint": "Preparing your TH18 base vault...",
+                "badge.th18": "🔥 TH18 Vault",
+                "admin.ownerMode": "Owner mode",
+                "admin.signOut": "Sign out",
+                "hero.title": "🏆 TH18 Bases <span style=\"font-weight:400;background:none;-webkit-text-fill-color:var(--text-secondary);\">— Community Vault</span>",
+                "hero.sub": "⚡ The latest & most effective Town Hall 18 layouts",
+                "hero.desc": "Explore the best TH18 base designs — anti-3-star, war-tested, and trophy-pushing layouts. Want your base featured? Send it to clan #2CY29YPC9 — if it's good, we'll add it here.",
+                "btn.addBase": "➕ Add Base",
+                "btn.manageContributors": "👥 Manage Contributors",
+                "btn.refresh": "⟳ Refresh",
+                "count.bases": "{n} base",
+                "search.ph": "Search bases by name or description...",
+                "chip.all": "All",
+                "chip.war": "War",
+                "chip.cwl": "CWL",
+                "chip.legend": "Legend League",
+                "chip.farming": "Farming",
+                "chip.hybrid": "Hybrid",
+                "chip.trophy": "Trophy",
+                "grid.noMatch": "No bases match your search",
+                "grid.noMatchSub": "Try a different keyword or category.",
+                "grid.emptyTitle": "Vault is empty",
+                "grid.emptySub": "Check back soon for new TH18 layouts.",
+                "card.copy": "📋 Copy",
+                "card.open": "↗ Open",
+                "card.noImage": "🖼️ no image",
+                "card.unnamed": "Unnamed Base",
+                "card.defaultDesc": "Approved TH18 layout",
+                "footer.supercell": "clashofclans-layouts.com is unofficial and is not endorsed by Supercell. For more information see <a href=\"https://supercell.com/en/fan-content-policy/en/\" target=\"_blank\" rel=\"nofollow noopener\">Supercell's Fan Content Policy</a>.",
+                "footer.privacy": "Only the owner and invited contributors can publish bases. Everyone else can search, filter, and copy or open base links.",
+                "footer.ownerLink": "Site owner or contributor? Sign in",
+                "toast.copied": "✅ Link copied!",
+                "toast.copyFail": "⚠️ Could not copy link",
+                "toast.refreshed": "⟳ Refreshed",
+                "toast.signedOut": "Signed out",
+                "toast.signedOwner": "✅ Signed in as owner",
+                "toast.signedContrib": "✅ Signed in as {name}"
+            },
+
+            ru: {
+                "welcome.title": "Мы делаем вас легендой.",
+                "welcome.hint": "Готовим хранилище баз TH18...",
+                "badge.th18": "🔥 Хранилище TH18",
+                "admin.ownerMode": "Режим владельца",
+                "admin.signOut": "Выйти",
+                "hero.title": "🏆 Базы TH18 <span style=\"font-weight:400;background:none;-webkit-text-fill-color:var(--text-secondary);\">— Хранилище сообщества</span>",
+                "hero.sub": "⚡ Самые новые и эффективные базы Ратуши 18",
+                "hero.desc": "Изучите лучшие базы TH18 — против три-звёзд, проверенные в войнах и для набора кубков. Хотите добавить свою базу? Отправьте её в клан #2CY29YPC9 — если она хороша, мы добавим её сюда.",
+                "btn.addBase": "➕ Добавить базу",
+                "btn.manageContributors": "👥 Управление участниками",
+                "btn.refresh": "⟳ Обновить",
+                "count.bases": "{n} баз",
+                "search.ph": "Поиск баз по названию или описанию...",
+                "chip.all": "Все",
+                "chip.war": "Война",
+                "chip.cwl": "ЛВК",
+                "chip.legend": "Легендарная лига",
+                "chip.farming": "Фарм",
+                "chip.hybrid": "Гибрид",
+                "chip.trophy": "Кубки",
+                "grid.noMatch": "Нет баз по вашему запросу",
+                "grid.noMatchSub": "Попробуйте другое слово или категорию.",
+                "grid.emptyTitle": "Хранилище пусто",
+                "grid.emptySub": "Загляните позже — скоро появятся новые базы TH18.",
+                "card.copy": "📋 Копировать",
+                "card.open": "↗ Открыть",
+                "card.noImage": "🖼️ нет изображения",
+                "card.unnamed": "База без названия",
+                "card.defaultDesc": "Одобренная база TH18",
+                "footer.supercell": "clashofclans-layouts.com не является официальным сайтом и не одобрен Supercell. Подробнее см. <a href=\"https://supercell.com/en/fan-content-policy/en/\" target=\"_blank\" rel=\"nofollow noopener\">Fan Content Policy</a>.",
+                "footer.privacy": "Публиковать базы могут только владелец и приглашённые участники. Остальные могут искать, фильтровать и копировать ссылки.",
+                "footer.ownerLink": "Владелец сайта или участник? Войти",
+                "toast.copied": "✅ Ссылка скопирована!",
+                "toast.copyFail": "⚠️ Не удалось скопировать ссылку",
+                "toast.refreshed": "⟳ Обновлено",
+                "toast.signedOut": "Вы вышли",
+                "toast.signedOwner": "✅ Вход выполнен как владелец",
+                "toast.signedContrib": "✅ Вход выполнен: {name}"
+            },
+
+            de: {
+                "welcome.title": "Wir machen dich zur Legende.",
+                "welcome.hint": "Dein TH18-Basistresor wird vorbereitet...",
+                "badge.th18": "🔥 TH18-Tresor",
+                "admin.ownerMode": "Besitzer-Modus",
+                "admin.signOut": "Abmelden",
+                "hero.title": "🏆 TH18-Basen <span style=\"font-weight:400;background:none;-webkit-text-fill-color:var(--text-secondary);\">— Community-Tresor</span>",
+                "hero.sub": "⚡ Die neuesten & effektivsten Rathaus-18-Layouts",
+                "hero.desc": "Entdecke die besten TH18-Basen — Anti-3-Sterne, kriegserprobt und für den Pokalaufstieg. Willst du deine Base zeigen? Schick sie an Clan #2CY29YPC9 — wenn sie gut ist, nehmen wir sie hier auf.",
+                "btn.addBase": "➕ Base hinzufügen",
+                "btn.manageContributors": "👥 Mitwirkende verwalten",
+                "btn.refresh": "⟳ Aktualisieren",
+                "count.bases": "{n} Basen",
+                "search.ph": "Basen nach Name oder Beschreibung suchen...",
+                "chip.all": "Alle",
+                "chip.war": "Krieg",
+                "chip.cwl": "CWL",
+                "chip.legend": "Legend-Liga",
+                "chip.farming": "Farmen",
+                "chip.hybrid": "Hybrid",
+                "chip.trophy": "Pokale",
+                "grid.noMatch": "Keine Basen passen zu deiner Suche",
+                "grid.noMatchSub": "Versuche ein anderes Stichwort oder eine andere Kategorie.",
+                "grid.emptyTitle": "Der Tresor ist leer",
+                "grid.emptySub": "Schau bald wieder vorbei für neue TH18-Layouts.",
+                "card.copy": "📋 Kopieren",
+                "card.open": "↗ Öffnen",
+                "card.noImage": "🖼️ kein Bild",
+                "card.unnamed": "Unbenannte Base",
+                "card.defaultDesc": "Genehmigtes TH18-Layout",
+                "footer.supercell": "clashofclans-layouts.com ist inoffiziell und wird nicht von Supercell unterstützt. Mehr dazu in der <a href=\"https://supercell.com/en/fan-content-policy/en/\" target=\"_blank\" rel=\"nofollow noopener\">Fan Content Policy</a>.",
+                "footer.privacy": "Nur der Besitzer und eingeladene Mitwirkende können Basen veröffentlichen. Alle anderen können suchen, filtern und Links kopieren oder öffnen.",
+                "footer.ownerLink": "Seitenbesitzer oder Mitwirkender? Anmelden",
+                "toast.copied": "✅ Link kopiert!",
+                "toast.copyFail": "⚠️ Link konnte nicht kopiert werden",
+                "toast.refreshed": "⟳ Aktualisiert",
+                "toast.signedOut": "Abgemeldet",
+                "toast.signedOwner": "✅ Als Besitzer angemeldet",
+                "toast.signedContrib": "✅ Angemeldet als {name}"
+            },
+
+            fr: {
+                "welcome.title": "Nous faisons de vous une légende.",
+                "welcome.hint": "Préparation de votre coffre de bases TH18...",
+                "badge.th18": "🔥 Coffre TH18",
+                "admin.ownerMode": "Mode propriétaire",
+                "admin.signOut": "Déconnexion",
+                "hero.title": "🏆 Bases TH18 <span style=\"font-weight:400;background:none;-webkit-text-fill-color:var(--text-secondary);\">— Coffre communautaire</span>",
+                "hero.sub": "⚡ Les layouts Hôtel de Ville 18 les plus récents et efficaces",
+                "hero.desc": "Découvrez les meilleures bases TH18 — anti-3-étoiles, testées en guerre et pour la montée en trophées. Vous voulez présenter votre base ? Envoyez-la au clan #2CY29YPC9 — si elle est bonne, nous l'ajouterons ici.",
+                "btn.addBase": "➕ Ajouter une base",
+                "btn.manageContributors": "👥 Gérer les contributeurs",
+                "btn.refresh": "⟳ Actualiser",
+                "count.bases": "{n} base(s)",
+                "search.ph": "Rechercher des bases par nom ou description...",
+                "chip.all": "Toutes",
+                "chip.war": "Guerre",
+                "chip.cwl": "LDC",
+                "chip.legend": "Ligue Légende",
+                "chip.farming": "Farm",
+                "chip.hybrid": "Hybride",
+                "chip.trophy": "Trophées",
+                "grid.noMatch": "Aucune base ne correspond à votre recherche",
+                "grid.noMatchSub": "Essayez un autre mot-clé ou une autre catégorie.",
+                "grid.emptyTitle": "Le coffre est vide",
+                "grid.emptySub": "Revenez bientôt pour de nouveaux layouts TH18.",
+                "card.copy": "📋 Copier",
+                "card.open": "↗ Ouvrir",
+                "card.noImage": "🖼️ pas d'image",
+                "card.unnamed": "Base sans nom",
+                "card.defaultDesc": "Layout TH18 approuvé",
+                "footer.supercell": "clashofclans-layouts.com est non officiel et n'est pas approuvé par Supercell. Pour plus d'informations, voir la <a href=\"https://supercell.com/en/fan-content-policy/en/\" target=\"_blank\" rel=\"nofollow noopener\">Politique de contenu de fan</a> de Supercell.",
+                "footer.privacy": "Seuls le propriétaire et les contributeurs invités peuvent publier des bases. Tous les autres peuvent rechercher, filtrer et copier ou ouvrir les liens.",
+                "footer.ownerLink": "Propriétaire du site ou contributeur ? Se connecter",
+                "toast.copied": "✅ Lien copié !",
+                "toast.copyFail": "⚠️ Impossible de copier le lien",
+                "toast.refreshed": "⟳ Actualisé",
+                "toast.signedOut": "Déconnecté",
+                "toast.signedOwner": "✅ Connecté en tant que propriétaire",
+                "toast.signedContrib": "✅ Connecté en tant que {name}"
+            },
+
+            es: {
+                "welcome.title": "Te hacemos leyenda.",
+                "welcome.hint": "Preparando tu bóveda de bases TH18...",
+                "badge.th18": "🔥 Bóveda TH18",
+                "admin.ownerMode": "Modo propietario",
+                "admin.signOut": "Cerrar sesión",
+                "hero.title": "🏆 Bases TH18 <span style=\"font-weight:400;background:none;-webkit-text-fill-color:var(--text-secondary);\">— Bóveda comunitaria</span>",
+                "hero.sub": "⚡ Los layouts de Ayuntamiento 18 más recientes y efectivos",
+                "hero.desc": "Explora los mejores diseños de bases TH18 — anti-3-estrellas, probadas en guerra y para subir trofeos. ¿Quieres destacar tu base? Envíala al clan #2CY29YPC9 — si es buena, la añadiremos aquí.",
+                "btn.addBase": "➕ Añadir base",
+                "btn.manageContributors": "👥 Gestionar colaboradores",
+                "btn.refresh": "⟳ Actualizar",
+                "count.bases": "{n} base(s)",
+                "search.ph": "Buscar bases por nombre o descripción...",
+                "chip.all": "Todas",
+                "chip.war": "Guerra",
+                "chip.cwl": "GCL",
+                "chip.legend": "Liga Leyenda",
+                "chip.farming": "Farmeo",
+                "chip.hybrid": "Híbrida",
+                "chip.trophy": "Trofeos",
+                "grid.noMatch": "Ninguna base coincide con tu búsqueda",
+                "grid.noMatchSub": "Prueba con otra palabra clave o categoría.",
+                "grid.emptyTitle": "La bóveda está vacía",
+                "grid.emptySub": "Vuelve pronto para ver nuevos layouts TH18.",
+                "card.copy": "📋 Copiar",
+                "card.open": "↗ Abrir",
+                "card.noImage": "🖼️ sin imagen",
+                "card.unnamed": "Base sin nombre",
+                "card.defaultDesc": "Layout TH18 aprobado",
+                "footer.supercell": "clashofclans-layouts.com no es oficial y no está respaldado por Supercell. Para más información, consulta la <a href=\"https://supercell.com/en/fan-content-policy/en/\" target=\"_blank\" rel=\"nofollow noopener\">Política de contenido de fans</a> de Supercell.",
+                "footer.privacy": "Solo el propietario y los colaboradores invitados pueden publicar bases. Todos los demás pueden buscar, filtrar y copiar o abrir los enlaces.",
+                "footer.ownerLink": "¿Propietario del sitio o colaborador? Inicia sesión",
+                "toast.copied": "✅ ¡Enlace copiado!",
+                "toast.copyFail": "⚠️ No se pudo copiar el enlace",
+                "toast.refreshed": "⟳ Actualizado",
+                "toast.signedOut": "Sesión cerrada",
+                "toast.signedOwner": "✅ Sesión iniciada como propietario",
+                "toast.signedContrib": "✅ Sesión iniciada como {name}"
+            },
+
+            it: {
+                "welcome.title": "Ti rendiamo una leggenda.",
+                "welcome.hint": "Preparazione della tua cassaforte di basi TH18...",
+                "badge.th18": "🔥 Cassaforte TH18",
+                "admin.ownerMode": "Modalità proprietario",
+                "admin.signOut": "Esci",
+                "hero.title": "🏆 Basi TH18 <span style=\"font-weight:400;background:none;-webkit-text-fill-color:var(--text-secondary);\">— Cassaforte della community</span>",
+                "hero.sub": "⚡ I layout Municipio 18 più recenti ed efficaci",
+                "hero.desc": "Esplora i migliori design di basi TH18 — anti-3-stelle, testate in guerra e per scalare i trofei. Vuoi mettere in evidenza la tua base? Inviala al clan #2CY29YPC9 — se è buona, la aggiungeremo qui.",
+                "btn.addBase": "➕ Aggiungi base",
+                "btn.manageContributors": "👥 Gestisci collaboratori",
+                "btn.refresh": "⟳ Aggiorna",
+                "count.bases": "{n} basi",
+                "search.ph": "Cerca basi per nome o descrizione...",
+                "chip.all": "Tutte",
+                "chip.war": "Guerra",
+                "chip.cwl": "CWL",
+                "chip.legend": "Lega Leggenda",
+                "chip.farming": "Farming",
+                "chip.hybrid": "Ibrida",
+                "chip.trophy": "Trofei",
+                "grid.noMatch": "Nessuna base corrisponde alla tua ricerca",
+                "grid.noMatchSub": "Prova con un'altra parola chiave o categoria.",
+                "grid.emptyTitle": "La cassaforte è vuota",
+                "grid.emptySub": "Torna presto per nuovi layout TH18.",
+                "card.copy": "📋 Copia",
+                "card.open": "↗ Apri",
+                "card.noImage": "🖼️ nessuna immagine",
+                "card.unnamed": "Base senza nome",
+                "card.defaultDesc": "Layout TH18 approvato",
+                "footer.supercell": "clashofclans-layouts.com non è ufficiale e non è approvato da Supercell. Per ulteriori informazioni consulta la <a href=\"https://supercell.com/en/fan-content-policy/en/\" target=\"_blank\" rel=\"nofollow noopener\">Fan Content Policy</a> di Supercell.",
+                "footer.privacy": "Solo il proprietario e i collaboratori invitati possono pubblicare basi. Tutti gli altri possono cercare, filtrare e copiare o aprire i link.",
+                "footer.ownerLink": "Proprietario del sito o collaboratore? Accedi",
+                "toast.copied": "✅ Link copiato!",
+                "toast.copyFail": "⚠️ Impossibile copiare il link",
+                "toast.refreshed": "⟳ Aggiornato",
+                "toast.signedOut": "Disconnesso",
+                "toast.signedOwner": "✅ Accesso come proprietario",
+                "toast.signedContrib": "✅ Accesso come {name}"
+            },
+
+            pt: {
+                "welcome.title": "Fazemos de você uma lenda.",
+                "welcome.hint": "Preparando seu cofre de bases TH18...",
+                "badge.th18": "🔥 Cofre TH18",
+                "admin.ownerMode": "Modo proprietário",
+                "admin.signOut": "Sair",
+                "hero.title": "🏆 Bases TH18 <span style=\"font-weight:400;background:none;-webkit-text-fill-color:var(--text-secondary);\">— Cofre da comunidade</span>",
+                "hero.sub": "⚡ Os layouts de Prefeitura 18 mais recentes e eficazes",
+                "hero.desc": "Explore os melhores designs de bases TH18 — anti-3-estrelas, testadas em guerra e para subir troféus. Quer destacar sua base? Envie para o clã #2CY29YPC9 — se for boa, adicionaremos aqui.",
+                "btn.addBase": "➕ Adicionar base",
+                "btn.manageContributors": "👥 Gerenciar colaboradores",
+                "btn.refresh": "⟳ Atualizar",
+                "count.bases": "{n} bases",
+                "search.ph": "Buscar bases por nome ou descrição...",
+                "chip.all": "Todas",
+                "chip.war": "Guerra",
+                "chip.cwl": "GCL",
+                "chip.legend": "Liga Lenda",
+                "chip.farming": "Farm",
+                "chip.hybrid": "Híbrida",
+                "chip.trophy": "Troféus",
+                "grid.noMatch": "Nenhuma base corresponde à sua busca",
+                "grid.noMatchSub": "Tente outra palavra-chave ou categoria.",
+                "grid.emptyTitle": "O cofre está vazio",
+                "grid.emptySub": "Volte em breve para novos layouts TH18.",
+                "card.copy": "📋 Copiar",
+                "card.open": "↗ Abrir",
+                "card.noImage": "🖼️ sem imagem",
+                "card.unnamed": "Base sem nome",
+                "card.defaultDesc": "Layout TH18 aprovado",
+                "footer.supercell": "clashofclans-layouts.com é não oficial e não é endossado pela Supercell. Para mais informações, consulte a <a href=\"https://supercell.com/en/fan-content-policy/en/\" target=\"_blank\" rel=\"nofollow noopener\">Política de Conteúdo de Fãs</a> da Supercell.",
+                "footer.privacy": "Apenas o proprietário e colaboradores convidados podem publicar bases. Todos os outros podem pesquisar, filtrar e copiar ou abrir links.",
+                "footer.ownerLink": "Proprietário do site ou colaborador? Entrar",
+                "toast.copied": "✅ Link copiado!",
+                "toast.copyFail": "⚠️ Não foi possível copiar o link",
+                "toast.refreshed": "⟳ Atualizado",
+                "toast.signedOut": "Sessão encerrada",
+                "toast.signedOwner": "✅ Sessão iniciada como proprietário",
+                "toast.signedContrib": "✅ Sessão iniciada como {name}"
+            },
+
+            pl: {
+                "welcome.title": "Tworzymy z Ciebie legendę.",
+                "welcome.hint": "Przygotowujemy Twój skarbiec baz TH18...",
+                "badge.th18": "🔥 Skarbiec TH18",
+                "admin.ownerMode": "Tryb właściciela",
+                "admin.signOut": "Wyloguj",
+                "hero.title": "🏆 Bazy TH18 <span style=\"font-weight:400;background:none;-webkit-text-fill-color:var(--text-secondary);\">— Skarbiec społeczności</span>",
+                "hero.sub": "⚡ Najnowsze i najskuteczniejsze układy Ratusza 18",
+                "hero.desc": "Odkryj najlepsze bazy TH18 — anty-3-gwiazdkowe, sprawdzone w wojnach i do zdobywania pucharów. Chcesz wypromować swoją bazę? Wyślij ją do klanu #2CY29YPC9 — jeśli będzie dobra, dodamy ją tutaj.",
+                "btn.addBase": "➕ Dodaj bazę",
+                "btn.manageContributors": "👥 Zarządzaj współtwórcami",
+                "btn.refresh": "⟳ Odśwież",
+                "count.bases": "{n} baz",
+                "search.ph": "Szukaj baz po nazwie lub opisie...",
+                "chip.all": "Wszystkie",
+                "chip.war": "Wojna",
+                "chip.cwl": "CWL",
+                "chip.legend": "Liga Legend",
+                "chip.farming": "Farmienie",
+                "chip.hybrid": "Hybryda",
+                "chip.trophy": "Puchary",
+                "grid.noMatch": "Żadna baza nie pasuje do wyszukiwania",
+                "grid.noMatchSub": "Spróbuj innego słowa kluczowego lub kategorii.",
+                "grid.emptyTitle": "Skarbiec jest pusty",
+                "grid.emptySub": "Zajrzyj wkrótce po nowe układy TH18.",
+                "card.copy": "📋 Kopiuj",
+                "card.open": "↗ Otwórz",
+                "card.noImage": "🖼️ brak obrazu",
+                "card.unnamed": "Baza bez nazwy",
+                "card.defaultDesc": "Zatwierdzony układ TH18",
+                "footer.supercell": "clashofclans-layouts.com jest nieoficjalna i nie jest zatwierdzona przez Supercell. Więcej informacji znajdziesz w <a href=\"https://supercell.com/en/fan-content-policy/en/\" target=\"_blank\" rel=\"nofollow noopener\">Polityce treści fanowskich</a> Supercell.",
+                "footer.privacy": "Tylko właściciel i zaproszeni współtwórcy mogą publikować bazy. Wszyscy inni mogą wyszukiwać, filtrować i kopiować lub otwierać linki.",
+                "footer.ownerLink": "Właściciel strony lub współtwórca? Zaloguj się",
+                "toast.copied": "✅ Link skopiowany!",
+                "toast.copyFail": "⚠️ Nie udało się skopiować linku",
+                "toast.refreshed": "⟳ Odświeżono",
+                "toast.signedOut": "Wylogowano",
+                "toast.signedOwner": "✅ Zalogowano jako właściciel",
+                "toast.signedContrib": "✅ Zalogowano jako {name}"
+            },
+
+            zh: {
+                "welcome.title": "我们让你成为传奇。",
+                "welcome.hint": "正在准备你的 TH18 阵型库...",
+                "badge.th18": "🔥 TH18 阵型库",
+                "admin.ownerMode": "所有者模式",
+                "admin.signOut": "退出登录",
+                "hero.title": "🏆 TH18 阵型 <span style=\"font-weight:400;background:none;-webkit-text-fill-color:var(--text-secondary);\">— 社区阵型库</span>",
+                "hero.sub": "⚡ 最新最有效的 18 本阵型",
+                "hero.desc": "探索最好的 TH18 阵型 — 防三星、部落战测试、冲杯阵型。想要推荐你的阵型？发送至部落 #2CY29YPC9 — 如果不错，我们会添加到这里。",
+                "btn.addBase": "➕ 添加阵型",
+                "btn.manageContributors": "👥 管理贡献者",
+                "btn.refresh": "⟳ 刷新",
+                "count.bases": "{n} 个阵型",
+                "search.ph": "按名称或描述搜索阵型...",
+                "chip.all": "全部",
+                "chip.war": "部落战",
+                "chip.cwl": "部落对战联赛",
+                "chip.legend": "传奇联赛",
+                "chip.farming": "打资源",
+                "chip.hybrid": "混合",
+                "chip.trophy": "冲杯",
+                "grid.noMatch": "没有阵型符合你的搜索",
+                "grid.noMatchSub": "试试其他关键词或分类。",
+                "grid.emptyTitle": "阵型库为空",
+                "grid.emptySub": "请稍后回来查看新的 TH18 阵型。",
+                "card.copy": "📋 复制",
+                "card.open": "↗ 打开",
+                "card.noImage": "🖼️ 无图片",
+                "card.unnamed": "未命名阵型",
+                "card.defaultDesc": "已审核的 TH18 阵型",
+                "footer.supercell": "clashofclans-layouts.com 为非官方网站，未获得 Supercell 认可。更多信息请参阅 Supercell 的<a href=\"https://supercell.com/en/fan-content-policy/en/\" target=\"_blank\" rel=\"nofollow noopener\">粉丝内容政策</a>。",
+                "footer.privacy": "只有所有者和受邀贡献者可以发布阵型。其他人可以搜索、筛选并复制或打开链接。",
+                "footer.ownerLink": "网站所有者或贡献者？登录",
+                "toast.copied": "✅ 链接已复制！",
+                "toast.copyFail": "⚠️ 无法复制链接",
+                "toast.refreshed": "⟳ 已刷新",
+                "toast.signedOut": "已退出",
+                "toast.signedOwner": "✅ 已以所有者身份登录",
+                "toast.signedContrib": "✅ 已登录：{name}"
+            },
+
+            ar: {
+                "welcome.title": "نجعلك أسطورة.",
+                "welcome.hint": "جارٍ تحضير خزنة قواعد TH18...",
+                "badge.th18": "🔥 خزنة TH18",
+                "admin.ownerMode": "وضع المالك",
+                "admin.signOut": "تسجيل الخروج",
+                "hero.title": "🏆 قواعد TH18 <span style=\"font-weight:400;background:none;-webkit-text-fill-color:var(--text-secondary);\">— خزنة المجتمع</span>",
+                "hero.sub": "⚡ أحدث وأكثر تصاميم قاعة البلدية 18 فعالية",
+                "hero.desc": "استكشف أفضل تصاميم قواعد TH18 — مضادة للثلاث نجوم، مُختبرة في الحروب، ومناسبة لجمع الكؤوس. هل تريد إبراز قاعدتك؟ أرسلها إلى الكلان #2CY29YPC9 — إذا كانت جيدة، سنضيفها هنا.",
+                "btn.addBase": "➕ إضافة قاعدة",
+                "btn.manageContributors": "👥 إدارة المساهمين",
+                "btn.refresh": "⟳ تحديث",
+                "count.bases": "{n} قاعدة",
+                "search.ph": "ابحث عن القواعد بالاسم أو الوصف...",
+                "chip.all": "الكل",
+                "chip.war": "الحرب",
+                "chip.cwl": "CWL",
+                "chip.legend": "دوري الأساطير",
+                "chip.farming": "الجمع",
+                "chip.hybrid": "هجين",
+                "chip.trophy": "الكؤوس",
+                "grid.noMatch": "لا توجد قواعد تطابق بحثك",
+                "grid.noMatchSub": "جرّب كلمة مفتاحية أو فئة أخرى.",
+                "grid.emptyTitle": "الخزنة فارغة",
+                "grid.emptySub": "عُد قريبًا لتصاميم TH18 جديدة.",
+                "card.copy": "📋 نسخ",
+                "card.open": "↗ فتح",
+                "card.noImage": "🖼️ لا توجد صورة",
+                "card.unnamed": "قاعدة بلا اسم",
+                "card.defaultDesc": "تصميم TH18 معتمد",
+                "footer.supercell": "clashofclans-layouts.com غير رسمي وغير معتمد من Supercell. لمزيد من المعلومات، راجع <a href=\"https://supercell.com/en/fan-content-policy/en/\" target=\"_blank\" rel=\"nofollow noopener\">سياسة محتوى المعجبين</a> الخاصة بـ Supercell.",
+                "footer.privacy": "فقط المالك والمساهمون المدعوون يمكنهم نشر القواعد. يمكن للجميع البحث والتصفية ونسخ الروابط أو فتحها.",
+                "footer.ownerLink": "مالك الموقع أو مساهم؟ سجّل الدخول",
+                "toast.copied": "✅ تم نسخ الرابط!",
+                "toast.copyFail": "⚠️ تعذّر نسخ الرابط",
+                "toast.refreshed": "⟳ تم التحديث",
+                "toast.signedOut": "تم تسجيل الخروج",
+                "toast.signedOwner": "✅ تم تسجيل الدخول كمالك",
+                "toast.signedContrib": "✅ تم تسجيل الدخول كـ {name}"
+            }
+        };
+
+        let currentLang = 'en';
+
+        function t(key, vars) {
+            const dict = I18N[currentLang] || I18N.en;
+            let s = (dict && dict[key]) || I18N.en[key] || key;
+            if (vars) for (const k in vars) s = s.split('{' + k + '}').join(vars[k]);
+            return s;
+        }
+
+        function applyLanguage(lang) {
+            if (!I18N[lang]) lang = 'en';
+            currentLang = lang;
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.dataset.i18n;
+                const dict = I18N[lang] || I18N.en;
+                if (dict[key] || I18N.en[key]) el.textContent = t(key);
+            });
+
+            document.querySelectorAll('[data-i18n-html]').forEach(el => {
+                const key = el.dataset.i18nHtml;
+                const dict = I18N[lang] || I18N.en;
+                if (dict[key] || I18N.en[key]) el.innerHTML = t(key);
+            });
+
+            document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+                const key = el.dataset.i18nPh;
+                const dict = I18N[lang] || I18N.en;
+                if (dict[key] || I18N.en[key]) el.placeholder = t(key);
+            });
+
+            document.documentElement.lang = lang;
+            document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+
+            document.querySelectorAll('#langSwitcher .lang-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.lang === lang);
+            });
+
+            try { localStorage.setItem('lang', lang); } catch (_) {}
+
+            // Re-render dynamic content (cards, hero count) in the new language
+            renderGrid();
+            renderHero();
+        }
+
+        document.getElementById('langSwitcher').addEventListener('click', (e) => {
+            const btn = e.target.closest('.lang-btn');
+            if (!btn) return;
+            applyLanguage(btn.dataset.lang);
+        });
+
+        (function initLang() {
+            let saved = null;
+            try { saved = localStorage.getItem('lang'); } catch (_) {}
+            if (saved && I18N[saved]) applyLanguage(saved);
+        })();
 
         loadBases();
         render();
